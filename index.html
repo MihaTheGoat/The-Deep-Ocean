@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Ocean Quiz</title>
+    <style>
+        body {
+            background-color: #001F3F;
+            color: #00BFFF;
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            background-image: url('https://source.unsplash.com/1600x900/?ocean,underwater');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            margin-top: 100px;
+            background: rgba(0, 0, 50, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .answer-box {
+            padding: 10px;
+            font-size: 18px;
+            background: #003366;
+            color: white;
+            border: 2px solid #00BFFF;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #00BFFF;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question" id="question1">1 in 50 million, from red to the color of the sea</div>
+        <input type="text" class="answer-box" id="answer1" placeholder="Type your answer">
+        <button onclick="checkAnswer1()">Submit</button>
+        <p id="response1"></p>
+    </div>
+
+    <div class="container hidden" id="secondQuestion">
+        <div class="question">What lives in the ocean?</div>
+        <input type="text" class="answer-box" id="answer2" placeholder="Type your answer">
+        <button onclick="checkAnswer2()">Submit</button>
+        <p id="response2"></p>
+    </div>
+
+    <script>
+        function checkAnswer1() {
+            let answer = document.getElementById("answer1").value.toLowerCase().trim();
+            let response = document.getElementById("response1");
+
+            if (answer === "blue lobster") {
+                response.textContent = "Correct!";
+                document.getElementById("secondQuestion").classList.remove("hidden");
+            } else {
+                response.textContent = "Wrong! Try again.";
+            }
+        }
+
+        function checkAnswer2() {
+            let answer = document.getElementById("answer2").value.toLowerCase().trim();
+            let response = document.getElementById("response2");
+            let correctAnswers = ["fish", "whale", "octopus", "shark", "dolphin"];
+
+            if (correctAnswers.includes(answer)) {
+                response.textContent = "Correct!";
+            } else {
+                response.textContent = "Wrong! Try again.";
+            }
+        }
+    </script>
+</body>
+</html>
