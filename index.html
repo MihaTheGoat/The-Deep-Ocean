@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystery Ocean Quiz</title>
+    <title>The Deep Sea Quiz</title>
     <style>
         body {
             background-color: #001F3F;
             color: #00BFFF;
             text-align: center;
             font-family: "Arial", sans-serif;
-            background-image: url('https://source.unsplash.com/1600x900/?ocean,underwater');
+            background-image: url('https://source.unsplash.com/1600x900/?ocean,deepsea');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -24,177 +24,211 @@
             align-items: center;
         }
         .header {
-            position: absolute;
-            top: 20px;
-            width: 100%;
+            margin-bottom: 30px;
             text-align: center;
         }
         .title {
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+            letter-spacing: 1px;
         }
         .question-number {
-            font-size: 18px;
+            font-size: 20px;
             color: #00FFFF;
+            margin-bottom: 10px;
         }
         .container {
-            background: rgba(0, 0, 50, 0.7);
-            padding: 30px;
+            background: rgba(0, 0, 50, 0.75);
+            padding: 30px 40px;
             border-radius: 15px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
-            margin: 20px auto;
+            width: 85%;
+            max-width: 650px;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.4);
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(0, 191, 255, 0.2);
         }
         .question {
-            font-size: 24px;
-            margin-bottom: 25px;
-            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+            font-size: 26px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgba(0, 191, 255, 0.6);
+            line-height: 1.4;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .answer-box {
-            padding: 12px;
+            padding: 14px 20px;
             font-size: 18px;
-            background: #003366;
+            background: rgba(0, 51, 102, 0.8);
             color: white;
             border: 2px solid #00BFFF;
-            border-radius: 5px;
+            border-radius: 8px;
             width: 80%;
-            max-width: 400px;
-            margin-bottom: 15px;
+            max-width: 450px;
+            margin: 0 auto 20px;
             transition: all 0.3s ease;
         }
         .answer-box:focus {
             outline: none;
             border-color: #00FFFF;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+            background: rgba(0, 51, 102, 0.9);
         }
         button {
             background-color: #00BFFF;
             color: #001F3F;
-            padding: 12px 25px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             margin-top: 10px;
             font-weight: bold;
+            font-size: 18px;
             transition: all 0.3s ease;
         }
         button:hover {
             background-color: #00FFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.5);
         }
         button:active {
             transform: translateY(0);
         }
         .response {
-            min-height: 24px;
-            margin-top: 20px;
-            font-size: 18px;
+            min-height: 28px;
+            margin-top: 25px;
+            font-size: 20px;
             color: #00FFFF;
+            font-weight: bold;
+        }
+        .correct {
+            color: #00FF00 !important;
+        }
+        .incorrect {
+            color: #FF5555 !important;
         }
         @media (max-width: 600px) {
             .container {
-                padding: 20px;
+                padding: 25px;
                 width: 90%;
             }
             .question {
-                font-size: 20px;
+                font-size: 22px;
+                min-height: 70px;
             }
             .title {
-                font-size: 28px;
+                font-size: 30px;
+            }
+            .answer-box {
+                width: 90%;
+                padding: 12px 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="title">The Deep Ocean</div>
-        <div class="question-number" id="questionNum">Question 1 of 2</div>
+        <div class="title">The Deep Sea</div>
+        <div class="question-number" id="questionNum">Question 1 of 5</div>
     </div>
 
-    <div class="container" id="questionContainer">
-        <div class="question" id="currentQuestion">1 in 50 million, from red to the color of the sea</div>
-        <input type="text" class="answer-box" id="answerInput" placeholder="Type your answer" autocomplete="off">
+    <div class="container">
+        <div class="question" id="currentQuestion"></div>
+        <input type="text" class="answer-box" id="answerInput" placeholder="Type your answer..." autocomplete="off">
         <button onclick="checkAnswer()">Submit</button>
         <div class="response" id="response"></div>
     </div>
 
     <script>
-        let currentQuestion = 1;
+        let currentQuestionIndex = 0;
         const questions = [
             {
-                text: "1 in 50 million, from red to the color of the sea",
+                question: "1 in 50 million, from red to the color of the sea",
                 answer: "blue lobster",
-                responses: {
-                    correct: "Correct! 🎉",
-                    incorrect: "Not quite! Try again."
-                }
+                hint: "It's a rare color variant of a crustacean"
             },
             {
-                text: "What lives in the ocean?",
-                answer: ["fish", "whale", "octopus", "shark", "dolphin", "jellyfish", 
-                        "crab", "seahorse", "starfish", "coral", "turtle", "squid"],
-                responses: {
-                    correct: "Correct! 🌊",
-                    incorrect: "That's not a common ocean creature. Try again!"
-                }
+                question: "What lives in the deep ocean?",
+                answer: ["anglerfish", "giant squid", "viperfish", "hatchetfish", "dragonfish", 
+                        "gulper eel", "fangtooth", "barreleye", "deepsea octopus", "blobfish"],
+                hint: "Think of creatures from the midnight zone or deeper"
+            },
+            {
+                question: "The deepest known part of the ocean",
+                answer: "mariana trench",
+                hint: "Located in the western Pacific Ocean"
+            },
+            {
+                question: "Bioluminescent deep sea creature with a transparent head",
+                answer: "barreleye",
+                hint: "Also called 'spook fish'"
+            },
+            {
+                question: "Percentage of the ocean considered 'deep sea' (above 50%)",
+                answer: ["90%", "ninety percent", "90 percent"],
+                hint: "The vast majority of our oceans are deep"
             }
         ];
 
         function updateQuestion() {
-            document.getElementById("currentQuestion").textContent = questions[currentQuestion - 1].text;
-            document.getElementById("questionNum").textContent = `Question ${currentQuestion} of ${questions.length}`;
-            document.getElementById("answerInput").value = "";
-            document.getElementById("response").textContent = "";
+            if (currentQuestionIndex < questions.length) {
+                const currentQ = questions[currentQuestionIndex];
+                document.getElementById("currentQuestion").textContent = currentQ.question;
+                document.getElementById("questionNum").textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                document.getElementById("answerInput").value = "";
+                document.getElementById("response").textContent = "";
+                document.getElementById("response").className = "response";
+                document.getElementById("answerInput").focus();
+            } else {
+                // Quiz completed
+                document.getElementById("currentQuestion").textContent = "Congratulations! You've completed the Deep Sea Quiz!";
+                document.getElementById("questionNum").textContent = "All questions answered!";
+                document.getElementById("answerInput").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                document.getElementById("response").textContent = "You know your deep sea facts!";
+                document.getElementById("response").className = "response correct";
+            }
         }
 
         function checkAnswer() {
             const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
             const responseElement = document.getElementById("response");
-            const currentQ = questions[currentQuestion - 1];
+            const currentQ = questions[currentQuestionIndex];
             let isCorrect = false;
 
             if (Array.isArray(currentQ.answer)) {
-                isCorrect = currentQ.answer.includes(userAnswer);
+                isCorrect = currentQ.answer.some(ans => ans === userAnswer);
             } else {
                 isCorrect = userAnswer === currentQ.answer;
             }
 
             if (isCorrect) {
-                responseElement.textContent = currentQ.responses.correct;
-                responseElement.style.color = "#00FF00";
-                
-                if (currentQuestion < questions.length) {
-                    currentQuestion++;
-                    setTimeout(() => {
-                        updateQuestion();
-                    }, 1000);
-                } else {
-                    setTimeout(() => {
-                        document.getElementById("currentQuestion").textContent = "Quiz Completed!";
-                        document.getElementById("answerInput").style.display = "none";
-                        document.querySelector("button").style.display = "none";
-                        document.getElementById("questionNum").textContent = "All questions answered!";
-                    }, 1000);
-                }
+                responseElement.textContent = "✓ Correct! " + getRandomCongrats();
+                responseElement.className = "response correct";
+                currentQuestionIndex++;
+                setTimeout(updateQuestion, 1500);
             } else {
-                responseElement.textContent = currentQ.responses.incorrect;
-                responseElement.style.color = "#FF5555";
+                responseElement.textContent = "✗ Incorrect. Hint: " + currentQ.hint;
+                responseElement.className = "response incorrect";
             }
+        }
+
+        function getRandomCongrats() {
+            const congrats = ["Deep sea genius!", "Ocean master!", "Marine expert!", 
+                             "Perfect!", "Excellent!", "You're a deep sea explorer!"];
+            return congrats[Math.floor(Math.random() * congrats.length)];
         }
 
         // Initialize first question
         updateQuestion();
 
         // Add keyboard support
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("answerInput").addEventListener("keypress", function(e) {
-                if (e.key === "Enter") {
-                    checkAnswer();
-                }
-            });
+        document.getElementById("answerInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                checkAnswer();
+            }
         });
     </script>
 </body>
