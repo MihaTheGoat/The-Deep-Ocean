@@ -18,19 +18,38 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .title {
+            font-size: 32px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+        }
+        .question-number {
+            font-size: 18px;
+            color: #00FFFF;
         }
         .container {
-            margin: 100px auto;
             background: rgba(0, 0, 50, 0.7);
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
-            display: inline-block;
-            max-width: 90%;
+            width: 80%;
+            max-width: 600px;
             box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+            margin: 20px auto;
         }
         .question {
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
         }
         .answer-box {
@@ -42,7 +61,7 @@
             border-radius: 5px;
             width: 80%;
             max-width: 400px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             transition: all 0.3s ease;
         }
         .answer-box:focus {
@@ -69,84 +88,111 @@
         button:active {
             transform: translateY(0);
         }
-        .hidden {
-            display: none;
-        }
-        #response1, #response2 {
+        .response {
             min-height: 24px;
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 18px;
             color: #00FFFF;
         }
         @media (max-width: 600px) {
             .container {
-                margin: 50px auto;
-                padding: 15px;
+                padding: 20px;
+                width: 90%;
             }
             .question {
                 font-size: 20px;
+            }
+            .title {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="question" id="question1">1 in 50 million, from red to the color of the sea</div>
-        <input type="text" class="answer-box" id="answer1" placeholder="Type your answer" autocomplete="off">
-        <button onclick="checkAnswer1()">Submit</button>
-        <p id="response1"></p>
+    <div class="header">
+        <div class="title">The Deep Ocean</div>
+        <div class="question-number" id="questionNum">Question 1 of 2</div>
     </div>
 
-    <div class="container hidden" id="secondQuestion">
-        <div class="question">What lives in the ocean?</div>
-        <input type="text" class="answer-box" id="answer2" placeholder="Type your answer" autocomplete="off">
-        <button onclick="checkAnswer2()">Submit</button>
-        <p id="response2"></p>
+    <div class="container" id="questionContainer">
+        <div class="question" id="currentQuestion">1 in 50 million, from red to the color of the sea</div>
+        <input type="text" class="answer-box" id="answerInput" placeholder="Type your answer" autocomplete="off">
+        <button onclick="checkAnswer()">Submit</button>
+        <div class="response" id="response"></div>
     </div>
 
     <script>
-        function checkAnswer1() {
-            const answer = document.getElementById("answer1").value.toLowerCase().trim();
-            const response = document.getElementById("response1");
-
-            if (answer === "blue lobster") {
-                response.textContent = "Correct! 🎉";
-                response.style.color = "#00FF00";
-                document.getElementById("secondQuestion").classList.remove("hidden");
-                // Scroll to the next question for better UX
-                document.getElementById("secondQuestion").scrollIntoView({ behavior: 'smooth' });
-            } else {
-                response.textContent = "Not quite! Try again.";
-                response.style.color = "#FF5555";
-            }
-        }
-
-        function checkAnswer2() {
-            const answer = document.getElementById("answer2").value.toLowerCase().trim();
-            const response = document.getElementById("response2");
-            const correctAnswers = ["fish", "whale", "octopus", "shark", "dolphin", "jellyfish", 
-                                  "crab", "seahorse", "starfish", "coral", "turtle", "squid"];
-
-            if (correctAnswers.includes(answer)) {
-                response.textContent = "Correct! 🌊";
-                response.style.color = "#00FF00";
-            } else {
-                response.textContent = "That's not a common ocean creature. Try again!";
-                response.style.color = "#FF5555";
-            }
-        }
-
-        // Add keyboard support for better accessibility
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("answer1").addEventListener("keypress", function(e) {
-                if (e.key === "Enter") {
-                    checkAnswer1();
+        let currentQuestion = 1;
+        const questions = [
+            {
+                text: "1 in 50 million, from red to the color of the sea",
+                answer: "blue lobster",
+                responses: {
+                    correct: "Correct! 🎉",
+                    incorrect: "Not quite! Try again."
                 }
-            });
-            
-            document.getElementById("answer2").addEventListener("keypress", function(e) {
+            },
+            {
+                text: "What lives in the ocean?",
+                answer: ["fish", "whale", "octopus", "shark", "dolphin", "jellyfish", 
+                        "crab", "seahorse", "starfish", "coral", "turtle", "squid"],
+                responses: {
+                    correct: "Correct! 🌊",
+                    incorrect: "That's not a common ocean creature. Try again!"
+                }
+            }
+        ];
+
+        function updateQuestion() {
+            document.getElementById("currentQuestion").textContent = questions[currentQuestion - 1].text;
+            document.getElementById("questionNum").textContent = `Question ${currentQuestion} of ${questions.length}`;
+            document.getElementById("answerInput").value = "";
+            document.getElementById("response").textContent = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+            const responseElement = document.getElementById("response");
+            const currentQ = questions[currentQuestion - 1];
+            let isCorrect = false;
+
+            if (Array.isArray(currentQ.answer)) {
+                isCorrect = currentQ.answer.includes(userAnswer);
+            } else {
+                isCorrect = userAnswer === currentQ.answer;
+            }
+
+            if (isCorrect) {
+                responseElement.textContent = currentQ.responses.correct;
+                responseElement.style.color = "#00FF00";
+                
+                if (currentQuestion < questions.length) {
+                    currentQuestion++;
+                    setTimeout(() => {
+                        updateQuestion();
+                    }, 1000);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById("currentQuestion").textContent = "Quiz Completed!";
+                        document.getElementById("answerInput").style.display = "none";
+                        document.querySelector("button").style.display = "none";
+                        document.getElementById("questionNum").textContent = "All questions answered!";
+                    }, 1000);
+                }
+            } else {
+                responseElement.textContent = currentQ.responses.incorrect;
+                responseElement.style.color = "#FF5555";
+            }
+        }
+
+        // Initialize first question
+        updateQuestion();
+
+        // Add keyboard support
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("answerInput").addEventListener("keypress", function(e) {
                 if (e.key === "Enter") {
-                    checkAnswer2();
+                    checkAnswer();
                 }
             });
         });
