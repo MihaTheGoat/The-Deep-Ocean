@@ -13,79 +13,143 @@
             background-image: url('https://source.unsplash.com/1600x900/?ocean,underwater');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .container {
-            margin-top: 100px;
+            margin: 100px auto;
             background: rgba(0, 0, 50, 0.7);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             display: inline-block;
+            max-width: 90%;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
         }
         .question {
             font-size: 24px;
             margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
         }
         .answer-box {
-            padding: 10px;
+            padding: 12px;
             font-size: 18px;
             background: #003366;
             color: white;
             border: 2px solid #00BFFF;
             border-radius: 5px;
+            width: 80%;
+            max-width: 400px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        .answer-box:focus {
+            outline: none;
+            border-color: #00FFFF;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         button {
             background-color: #00BFFF;
-            color: black;
-            padding: 10px 20px;
+            color: #001F3F;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #00FFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
         }
         .hidden {
             display: none;
+        }
+        #response1, #response2 {
+            min-height: 24px;
+            margin-top: 15px;
+            font-size: 18px;
+            color: #00FFFF;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 50px auto;
+                padding: 15px;
+            }
+            .question {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="question" id="question1">1 in 50 million, from red to the color of the sea</div>
-        <input type="text" class="answer-box" id="answer1" placeholder="Type your answer">
+        <input type="text" class="answer-box" id="answer1" placeholder="Type your answer" autocomplete="off">
         <button onclick="checkAnswer1()">Submit</button>
         <p id="response1"></p>
     </div>
 
     <div class="container hidden" id="secondQuestion">
         <div class="question">What lives in the ocean?</div>
-        <input type="text" class="answer-box" id="answer2" placeholder="Type your answer">
+        <input type="text" class="answer-box" id="answer2" placeholder="Type your answer" autocomplete="off">
         <button onclick="checkAnswer2()">Submit</button>
         <p id="response2"></p>
     </div>
 
     <script>
         function checkAnswer1() {
-            let answer = document.getElementById("answer1").value.toLowerCase().trim();
-            let response = document.getElementById("response1");
+            const answer = document.getElementById("answer1").value.toLowerCase().trim();
+            const response = document.getElementById("response1");
 
             if (answer === "blue lobster") {
-                response.textContent = "Correct!";
+                response.textContent = "Correct! 🎉";
+                response.style.color = "#00FF00";
                 document.getElementById("secondQuestion").classList.remove("hidden");
+                // Scroll to the next question for better UX
+                document.getElementById("secondQuestion").scrollIntoView({ behavior: 'smooth' });
             } else {
-                response.textContent = "Wrong! Try again.";
+                response.textContent = "Not quite! Try again.";
+                response.style.color = "#FF5555";
             }
         }
 
         function checkAnswer2() {
-            let answer = document.getElementById("answer2").value.toLowerCase().trim();
-            let response = document.getElementById("response2");
-            let correctAnswers = ["fish", "whale", "octopus", "shark", "dolphin"];
+            const answer = document.getElementById("answer2").value.toLowerCase().trim();
+            const response = document.getElementById("response2");
+            const correctAnswers = ["fish", "whale", "octopus", "shark", "dolphin", "jellyfish", 
+                                  "crab", "seahorse", "starfish", "coral", "turtle", "squid"];
 
             if (correctAnswers.includes(answer)) {
-                response.textContent = "Correct!";
+                response.textContent = "Correct! 🌊";
+                response.style.color = "#00FF00";
             } else {
-                response.textContent = "Wrong! Try again.";
+                response.textContent = "That's not a common ocean creature. Try again!";
+                response.style.color = "#FF5555";
             }
         }
+
+        // Add keyboard support for better accessibility
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("answer1").addEventListener("keypress", function(e) {
+                if (e.key === "Enter") {
+                    checkAnswer1();
+                }
+            });
+            
+            document.getElementById("answer2").addEventListener("keypress", function(e) {
+                if (e.key === "Enter") {
+                    checkAnswer2();
+                }
+            });
+        });
     </script>
 </body>
 </html>
