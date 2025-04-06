@@ -4,161 +4,286 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Deep Sea Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --deep-blue: #001a33;
+      --ocean-teal: #00c8c8;
+      --bioluminescent: #00ffea;
+      --bubble-color: rgba(255, 255, 255, 0.1);
+    }
+
     body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to top, #000814 0%, #0077b6 100%);
-      color: #00f7ff;
-      overflow: hidden;
-      position: relative;
-      height: 100vh;
-    }
-
-    .container {
+      background-color: var(--deep-blue);
+      color: var(--ocean-teal);
       text-align: center;
-      padding-top: 60px;
-      position: relative;
-      z-index: 2;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 20px #00f7ff;
-    }
-
-    .question-box {
-      background: rgba(0, 10, 20, 0.9);
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 30px #00f7ff66;
-      margin: 30px auto;
-      max-width: 600px;
-    }
-
-    input {
-      padding: 15px;
-      width: 80%;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 10px 25px;
-      font-size: 1.1rem;
-      background-color: #00f7ff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      color: black;
-    }
-
-    .progress-bar {
-      width: 60%;
-      height: 8px;
-      background-color: #003344;
-      margin: 20px auto;
-      border-radius: 10px;
+      font-family: 'Kanit', sans-serif;
+      background-image: radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%), url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
       overflow: hidden;
+      position: relative;
     }
 
-    .progress {
+    .bubbles {
+      position: absolute;
+      width: 100%;
       height: 100%;
-      background-color: #00f7ff;
-      width: 0%;
-      transition: width 0.5s ease-in-out;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
 
     .bubble {
       position: absolute;
-      bottom: 0;
-      width: 10px;
-      height: 10px;
-      background: #00f7ff;
+      bottom: -50px;
+      width: 15px;
+      height: 15px;
+      background: var(--bubble-color);
       border-radius: 50%;
-      animation: rise 6s infinite ease-in;
-      opacity: 0.3;
-      z-index: 1;
+      animation: rise 10s linear infinite;
     }
 
     @keyframes rise {
       0% {
         transform: translateY(0) scale(1);
-        opacity: 0.3;
+        opacity: 1;
       }
       100% {
-        transform: translateY(-100vh) scale(0.5);
+        transform: translateY(-110vh) scale(0.5);
         opacity: 0;
+      }
+    }
+
+    .header {
+      margin-bottom: 40px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      color: #003366;
+      text-shadow: 0 0 15px var(--bioluminescent);
+      letter-spacing: 3px;
+    }
+
+    .question-number {
+      font-family: 'Tektur', sans-serif;
+      font-size: 1.5rem;
+      color: var(--bioluminescent);
+      margin-bottom: 5px;
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 500px;
+      height: 10px;
+      background: rgba(0, 191, 255, 0.2);
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px;
+    }
+
+    .container {
+      background: rgba(0, 20, 40, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .question {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      min-height: 100px;
+    }
+
+    .answer-box {
+      padding: 18px 30px;
+      font-size: 1.3rem;
+      background: rgba(0, 40, 80, 0.8);
+      color: white;
+      border: 2px solid var(--ocean-teal);
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    .answer-box:focus {
+      outline: none;
+      border-color: var(--bioluminescent);
+      background: rgba(0, 60, 120, 0.9);
+    }
+
+    button {
+      background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
+      color: var(--deep-blue);
+      padding: 18px 45px;
+      border: none;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 1.3rem;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .response {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .response.show {
+      opacity: 1;
+    }
+
+    .correct {
+      color: #00ff88;
+    }
+
+    .incorrect {
+      color: #ff5555;
+    }
+
+    .code-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-top: 40px;
+      color: var(--bioluminescent);
+      padding: 20px;
+      border: 1px solid var(--ocean-teal);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
+
+      .question {
+        font-size: 1.6rem;
       }
     }
   </style>
 </head>
 <body>
+  <div class="bubbles" id="bubbles"></div>
 
-  <div class="container">
-    <h1>THE DEEP SEA</h1>
-    <p id="progress-text">QUESTION 1 OF 5</p>
-    <div class="progress-bar">
-      <div class="progress" id="progress"></div>
-    </div>
-
-    <div class="question-box">
-      <h2 id="question">Loading question...</h2>
-      <input type="text" id="answer" placeholder="Enter your answer...">
-      <br>
-      <button onclick="submitAnswer()">SUBMIT</button>
+  <div class="header">
+    <div class="title">THE DEEP SEA</div>
+    <div class="question-number" id="questionNum">QUESTION 1 OF 5</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
   </div>
 
+  <div class="container">
+    <div class="question" id="currentQuestion"></div>
+    <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
+    <button onclick="checkAnswer()">SUBMIT</button>
+    <div class="response" id="response"></div>
+    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+  </div>
+
   <script>
-    const questions = [
-      "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA",
-      "WHAT LURKS AT 36,000 FEET?",
-      "BIOLUMINESCENCE: FRIEND OR FOE?",
-      "PRESSURE HERE COULD CRUSH A SUBMARINE. NAME IT.",
-      "THE DEEPEST LIVING FISH EVER FOUND?"
+    const allQuestions = [
+      { question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", answer: "blue lobster" },
+      { question: "WHAT TERRIFYING DEEP-SEA CREATURE HAS A BIOLUMINESCENT LURE?", answer: "anglerfish" },
+      { question: "THE DEEPEST KNOWN PART OF THE OCEAN (TWO WORDS)", answer: "mariana trench" },
+      { question: "THIS DEEP-SEA FISH HAS A TRANSPARENT HEAD AND TUBULAR EYES", answer: "barreleye" },
+      { question: "PERCENTAGE OF EARTH'S OCEANS THAT ARE DEEP SEA (ABOVE 50%)", answer: ["90%", "ninety percent", "90 percent"] },
+      { question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
+      { question: "THE LARGEST KNOWN DEEP-SEA CREATURE (TWO WORDS)", answer: "giant squid" },
+      { question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", answer: ["bloodybelly", "bloodybelly comb jelly"] }
     ];
 
-    let currentQuestion = 0;
+    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+    let currentQuestionIndex = 0;
 
-    function loadQuestion() {
-      document.getElementById("question").innerText = questions[currentQuestion];
-      document.getElementById("progress").style.width = `${(currentQuestion / questions.length) * 100}%`;
-      document.getElementById("progress-text").innerText =
-        currentQuestion < questions.length
-          ? `QUESTION ${currentQuestion + 1} OF ${questions.length}`
-          : "COMPLETED";
-    }
-
-    function submitAnswer() {
-      const input = document.getElementById("answer");
-      if (input.value.trim() === "") return;
-      input.value = "";
-      currentQuestion++;
-      if (currentQuestion < questions.length) {
-        loadQuestion();
+    function updateQuestion() {
+      if (currentQuestionIndex < selectedQuestions.length) {
+        const q = selectedQuestions[currentQuestionIndex];
+        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+        document.getElementById("answerInput").value = "";
+        document.getElementById("response").className = "response";
+        document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
-        document.querySelector(".question-box").innerHTML = "<h2>You made it to the bottom.</h2>";
-        document.getElementById("progress").style.width = "100%";
-        document.getElementById("progress-text").innerText = "COMPLETED";
+        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+        document.getElementById("questionNum").textContent = "COMPLETED";
+        document.getElementById("answerInput").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("codeDisplay").style.display = "block";
       }
     }
 
-    loadQuestion();
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const responseEl = document.getElementById("response");
+      const currentQ = selectedQuestions[currentQuestionIndex];
+      let correct = false;
 
-    setInterval(() => {
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.style.left = `${Math.random() * window.innerWidth}px`;
-      bubble.style.width = `${6 + Math.random() * 10}px`;
-      bubble.style.height = bubble.style.width;
-      bubble.style.animationDuration = `${4 + Math.random() * 3}s`;
-      document.body.appendChild(bubble);
-      setTimeout(() => bubble.remove(), 7000);
-    }, 300);
+      if (Array.isArray(currentQ.answer)) {
+        correct = currentQ.answer.includes(userAnswer);
+      } else {
+        correct = userAnswer === currentQ.answer;
+      }
+
+      if (correct) {
+        responseEl.textContent = "✓ CORRECT!";
+        responseEl.className = "response correct show";
+        currentQuestionIndex++;
+        setTimeout(updateQuestion, 1000);
+      } else {
+        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+        responseEl.className = "response incorrect show";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateQuestion();
+      document.getElementById("answerInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
+    });
   </script>
 </body>
 </html>
