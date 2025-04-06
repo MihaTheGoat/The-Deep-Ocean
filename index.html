@@ -8,15 +8,18 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to top, #000814 0%, #005f99 100%);
+      background: linear-gradient(to top, #000814 0%, #0077b6 100%);
       color: #00f7ff;
       overflow: hidden;
       position: relative;
+      height: 100vh;
     }
 
     .container {
       text-align: center;
-      padding-top: 50px;
+      padding-top: 60px;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -78,6 +81,7 @@
       border-radius: 50%;
       animation: rise 6s infinite ease-in;
       opacity: 0.3;
+      z-index: 1;
     }
 
     @keyframes rise {
