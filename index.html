@@ -28,7 +28,7 @@
       position: relative;
     }
 
-    .bubbles {
+    .bubbles, .fishies {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -48,14 +48,48 @@
     }
 
     @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+    }
+
+    .fish, .shark {
+      position: absolute;
+      width: 60px;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    .fish {
+      animation: swim 20s linear infinite;
+    }
+
+    .shark {
+      width: 120px;
+      animation: swim 30s linear infinite;
+    }
+
+    @keyframes swim {
       0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
+        left: -150px;
+        transform: scaleX(1);
+      }
+      50% {
+        transform: scaleX(-1);
       }
       100% {
-        transform: translateY(-110vh) scale(0.5);
-        opacity: 0;
+        left: 110%;
+        transform: scaleX(1);
       }
+    }
+
+    .monster {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      z-index: 1;
+      opacity: 0.9;
     }
 
     .header {
@@ -159,13 +193,8 @@
       opacity: 1;
     }
 
-    .correct {
-      color: #00ff88;
-    }
-
-    .incorrect {
-      color: #ff5555;
-    }
+    .correct { color: #00ff88; }
+    .incorrect { color: #ff5555; }
 
     .code-display {
       font-family: 'Orbitron', sans-serif;
@@ -180,18 +209,19 @@
     }
 
     @media (max-width: 768px) {
-      .title {
-        font-size: 2.8rem;
-      }
-
-      .question {
-        font-size: 1.6rem;
-      }
+      .title { font-size: 2.8rem; }
+      .question { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
   <div class="bubbles" id="bubbles"></div>
+  <div class="fishies">
+    <img src="https://i.ibb.co/xX3s0bf/fish1.png" class="fish" style="top: 30%; animation-delay: 0s;">
+    <img src="https://i.ibb.co/k9Zdm0P/fish2.png" class="fish" style="top: 60%; animation-delay: 5s;">
+    <img src="https://i.ibb.co/p2h6LzH/shark.png" class="shark" style="top: 45%; animation-delay: 8s;">
+  </div>
+  <img src="https://i.ibb.co/4ZMPgMS/monster-fish.png" class="monster" />
 
   <div class="header">
     <div class="title">THE DEEP SEA</div>
@@ -216,8 +246,8 @@
       { question: "THE DEEPEST KNOWN PART OF THE OCEAN (TWO WORDS)", answer: "mariana trench" },
       { question: "THIS DEEP-SEA FISH HAS A TRANSPARENT HEAD AND TUBULAR EYES", answer: "barreleye" },
       { question: "PERCENTAGE OF EARTH'S OCEANS THAT ARE DEEP SEA (ABOVE 50%)", answer: ["90%", "ninety percent", "90 percent"] },
-      { question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
       { question: "THE LARGEST KNOWN DEEP-SEA CREATURE (TWO WORDS)", answer: "giant squid" },
+      { question: "THIS DEEP-SEA CREATURE CAN SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
       { question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", answer: ["bloodybelly", "bloodybelly comb jelly"] }
     ];
 
@@ -235,7 +265,7 @@
         document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
         document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-        document.getElementById("questionNum").textContent = "FULLY EXPLORED";
+        document.getElementById("questionNum").textContent = "COMPLETED";
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
         document.getElementById("progressBar").style.width = "100%";
