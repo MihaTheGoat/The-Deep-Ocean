@@ -1,434 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Deep Sea Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --deep-blue: #001a33;
-            --ocean-teal: #00c8c8;
-            --bioluminescent: #00ffea;
-            --abyss-purple: #4b0082;
-            --coral: #ff7f50;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Deep Sea Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-blue: #001a33;
+      --ocean-teal: #00c8c8;
+      --bioluminescent: #00ffea;
+      --bubble-color: rgba(255, 255, 255, 0.1);
+    }
 
-        body {
-            background-color: var(--deep-blue);
-            color: var(--ocean-teal);
-            text-align: center;
-            font-family: 'Kanit', sans-serif;
-            background-image: 
-                radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%),
-                url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: var(--deep-blue);
+      color: var(--ocean-teal);
+      text-align: center;
+      font-family: 'Kanit', sans-serif;
+      background-image: radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%), url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .header {
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-        .title {
-            font-family: 'Russo One', sans-serif;
-            font-size: 4rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px var(--bioluminescent);
-            letter-spacing: 3px;
-            background: linear-gradient(to right, #00ffff, #00bfff, #0080ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      width: 15px;
+      height: 15px;
+      background: var(--bubble-color);
+      border-radius: 50%;
+      animation: rise 10s linear infinite;
+    }
 
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px var(--bioluminescent);
-            }
-            to {
-                text-shadow: 0 0 20px var(--bioluminescent), 0 0 30px rgba(0, 255, 255, 0.4);
-            }
-        }
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.5);
+        opacity: 0;
+      }
+    }
 
-        .question-number {
-            font-family: 'Tektur', sans-serif;
-            font-size: 1.5rem;
-            color: var(--bioluminescent);
-            margin-bottom: 5px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+    .header {
+      margin-bottom: 40px;
+      z-index: 2;
+      position: relative;
+    }
 
-        .progress-container {
-            width: 100%;
-            max-width: 500px;
-            height: 10px;
-            background: rgba(0, 191, 255, 0.2);
-            border-radius: 10px;
-            margin: 20px auto;
-            overflow: hidden;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
-        }
+    .title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      color: #003366;
+      text-shadow: 0 0 15px var(--bioluminescent);
+      letter-spacing: 3px;
+    }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
-            width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 10px;
-        }
+    .question-number {
+      font-family: 'Tektur', sans-serif;
+      font-size: 1.5rem;
+      color: var(--bioluminescent);
+      margin-bottom: 5px;
+    }
 
-        .container {
-            background: rgba(0, 20, 40, 0.9);
-            padding: 40px 50px;
-            border-radius: 20px;
-            width: 85%;
-            max-width: 700px;
-            box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 200, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
+    .progress-container {
+      width: 100%;
+      max-width: 500px;
+      height: 10px;
+      background: rgba(0, 191, 255, 0.2);
+      border-radius: 10px;
+      margin: 20px auto;
+    }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--ocean-teal), 
-                var(--bioluminescent), 
-                var(--abyss-purple), 
-                var(--coral));
-            background-size: 400%;
-            z-index: -1;
-            border-radius: 22px;
-            opacity: 0.7;
-            animation: borderGlow 8s linear infinite;
-        }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px;
+    }
 
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .container {
+      background: rgba(0, 20, 40, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+      position: relative;
+      z-index: 2;
+    }
 
-        .question {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
-            line-height: 1.5;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
+    .question {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      min-height: 100px;
+    }
 
-        .answer-box {
-            padding: 18px 30px;
-            font-size: 1.3rem;
-            background: rgba(0, 40, 80, 0.8);
-            color: white;
-            border: 2px solid var(--ocean-teal);
-            border-radius: 15px;
-            width: 80%;
-            max-width: 500px;
-            margin: 0 auto 30px;
-            transition: all 0.4s ease;
-            font-family: 'Kanit', sans-serif;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-        }
+    .answer-box {
+      padding: 18px 30px;
+      font-size: 1.3rem;
+      background: rgba(0, 40, 80, 0.8);
+      color: white;
+      border: 2px solid var(--ocean-teal);
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
 
-        .answer-box:focus {
-            outline: none;
-            border-color: var(--bioluminescent);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.3);
-            background: rgba(0, 60, 120, 0.9);
-        }
+    .answer-box:focus {
+      outline: none;
+      border-color: var(--bioluminescent);
+      background: rgba(0, 60, 120, 0.9);
+    }
 
-        button {
-            background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
-            color: var(--deep-blue);
-            padding: 18px 45px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0, 200, 255, 0.4);
-        }
+    button {
+      background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
+      color: var(--deep-blue);
+      padding: 18px 45px;
+      border: none;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 1.3rem;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, var(--bioluminescent), var(--ocean-teal));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    .response {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
 
-        button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 200, 255, 0.6);
-        }
+    .response.show {
+      opacity: 1;
+    }
 
-        button:hover::before {
-            opacity: 1;
-        }
+    .correct {
+      color: #00ff88;
+    }
 
-        button:active {
-            transform: translateY(0);
-        }
+    .incorrect {
+      color: #ff5555;
+    }
 
-        .response {
-            min-height: 40px;
-            margin-top: 30px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 15px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            font-family: 'Tektur', sans-serif;
-        }
+    .code-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-top: 40px;
+      color: var(--bioluminescent);
+      padding: 20px;
+      border: 1px solid var(--ocean-teal);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+    }
 
-        .response.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
 
-        .correct {
-            background: rgba(0, 255, 0, 0.2);
-            color: #00ff88;
-            border: 1px solid #00ff88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-        }
-
-        .incorrect {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff5555;
-            border: 1px solid #ff5555;
-        }
-
-        .code-display {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-top: 40px;
-            color: var(--bioluminescent);
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
-            letter-spacing: 3px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--ocean-teal);
-        }
-
-        .deep-sea-creature {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.6;
-            z-index: 0;
-            filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
-            animation: float 15s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-50px) rotate(5deg); }
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.8rem;
-            }
-            .container {
-                padding: 30px;
-                width: 90%;
-            }
-            .question {
-                font-size: 1.6rem;
-                min-height: 80px;
-            }
-            .answer-box {
-                width: 90%;
-                padding: 15px 20px;
-                font-size: 1.1rem;
-            }
-            button {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-            .response {
-                font-size: 1.3rem;
-                padding: 15px;
-            }
-            .code-display {
-                font-size: 2rem;
-            }
-        }
-    </style>
+      .question {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="title">THE DEEP SEA</div>
-        <div class="question-number" id="questionNum">QUESTION 1 OF 8</div>
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
+  <div class="bubbles" id="bubbles"></div>
+
+  <div class="header">
+    <div class="title">THE DEEP SEA</div>
+    <div class="question-number" id="questionNum">QUESTION 1 OF 5</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
+  </div>
 
-    <div class="container">
-        <div class="question" id="currentQuestion"></div>
-        <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
-        <button onclick="checkAnswer()">SUBMIT</button>
-        <div class="response" id="response"></div>
-        <div class="code-display hidden" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
-    </div>
+  <div class="container">
+    <div class="question" id="currentQuestion"></div>
+    <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
+    <button onclick="checkAnswer()">SUBMIT</button>
+    <div class="response" id="response"></div>
+    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+  </div>
 
-    <script>
-        // Available fonts used in this design:
-        // 1. 'Russo One' - Used for main title (bold, futuristic)
-        // 2. 'Tektur' - Used for question numbers (techy feel)
-        // 3. 'Orbitron' - Used for questions (sci-fi/futuristic)
-        // 4. 'Kanit' - Main body font (clean, readable)
-        // 5. 'Bebas Neue' - Buttons (bold, uppercase)
+  <script>
+    const allQuestions = [
+      { question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", answer: "blue lobster" },
+      { question: "WHAT TERRIFYING DEEP-SEA CREATURE HAS A BIOLUMINESCENT LURE?", answer: "anglerfish" },
+      { question: "THE DEEPEST KNOWN PART OF THE OCEAN (TWO WORDS)", answer: "mariana trench" },
+      { question: "THIS DEEP-SEA FISH HAS A TRANSPARENT HEAD AND TUBULAR EYES", answer: "barreleye" },
+      { question: "PERCENTAGE OF EARTH'S OCEANS THAT ARE DEEP SEA (ABOVE 50%)", answer: ["90%", "ninety percent", "90 percent"] },
+      { question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
+      { question: "THE LARGEST KNOWN DEEP-SEA CREATURE (TWO WORDS)", answer: "giant squid" },
+      { question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", answer: ["bloodybelly", "bloodybelly comb jelly"] }
+    ];
 
-        let currentQuestionIndex = 0;
-        const questions = [
-            {
-                question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA",
-                answer: "blue lobster"
-            },
-            {
-                question: "WHAT TERRIFYING DEEP-SEA CREATURE HAS A BIOLUMINESCENT LURE?",
-                answer: "anglerfish"
-            },
-            {
-                question: "THE DEEPEST KNOWN PART OF THE OCEAN (TWO WORDS)",
-                answer: "mariana trench"
-            },
-            {
-                question: "THIS DEEP-SEA FISH HAS A TRANSPARENT HEAD AND TUBULAR EYES",
-                answer: "barreleye"
-            },
-            {
-                question: "PERCENTAGE OF EARTH'S OCEANS THAT ARE DEEP SEA (ABOVE 50%)",
-                answer: ["90%", "ninety percent", "90 percent"]
-            },
-            {
-                question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF",
-                answer: ["black swallower", "black swallower fish"]
-            },
-            {
-                question: "THE LARGEST KNOWN DEEP-SEA CREATURE (TWO WORDS)",
-                answer: "giant squid"
-            },
-            {
-                question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP",
-                answer: ["bloodybelly", "bloodybelly comb jelly"]
-            }
-        ];
+    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+    let currentQuestionIndex = 0;
 
-        function updateQuestion() {
-            if (currentQuestionIndex < questions.length) {
-                const currentQ = questions[currentQuestionIndex];
-                document.getElementById("currentQuestion").textContent = currentQ.question;
-                document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF ${questions.length}`;
-                document.getElementById("answerInput").value = "";
-                document.getElementById("response").className = "response";
-                document.getElementById("response").textContent = "";
-                
-                // Update progress bar
-                const progressPercent = (currentQuestionIndex / questions.length) * 100;
-                document.getElementById("progressBar").style.width = `${progressPercent}%`;
-                
-                document.getElementById("answerInput").focus();
-            } else {
-                // Quiz completed
-                document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-                document.getElementById("questionNum").textContent = "FULLY EXPLORED";
-                document.getElementById("answerInput").style.display = "none";
-                document.querySelector("button").style.display = "none";
-                document.getElementById("progressBar").style.width = "100%";
-                document.getElementById("codeDisplay").classList.remove("hidden");
-            }
-        }
+    function updateQuestion() {
+      if (currentQuestionIndex < selectedQuestions.length) {
+        const q = selectedQuestions[currentQuestionIndex];
+        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF ${selectedQuestions.length}`;
+        document.getElementById("answerInput").value = "";
+        document.getElementById("response").className = "response";
+        document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+      } else {
+        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+        document.getElementById("questionNum").textContent = "FULLY EXPLORED";
+        document.getElementById("answerInput").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("codeDisplay").style.display = "block";
+      }
+    }
 
-        function checkAnswer() {
-            const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-            const responseElement = document.getElementById("response");
-            const currentQ = questions[currentQuestionIndex];
-            let isCorrect = false;
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const responseEl = document.getElementById("response");
+      const currentQ = selectedQuestions[currentQuestionIndex];
+      let correct = false;
 
-            if (Array.isArray(currentQ.answer)) {
-                isCorrect = currentQ.answer.some(ans => ans === userAnswer);
-            } else {
-                isCorrect = userAnswer === currentQ.answer;
-            }
+      if (Array.isArray(currentQ.answer)) {
+        correct = currentQ.answer.includes(userAnswer);
+      } else {
+        correct = userAnswer === currentQ.answer;
+      }
 
-            if (isCorrect) {
-                responseElement.textContent = "✓ CORRECT!";
-                responseElement.className = "response correct show";
-                currentQuestionIndex++;
-                setTimeout(updateQuestion, 1000);
-            } else {
-                responseElement.textContent = "✗ INCORRECT - TRY AGAIN";
-                responseElement.className = "response incorrect show";
-            }
-        }
+      if (correct) {
+        responseEl.textContent = "✓ CORRECT!";
+        responseEl.className = "response correct show";
+        currentQuestionIndex++;
+        setTimeout(updateQuestion, 1000);
+      } else {
+        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+        responseEl.className = "response incorrect show";
+      }
+    }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateQuestion();
-            
-            // Add keyboard support
-            document.getElementById("answerInput").addEventListener("keypress", function(e) {
-                if (e.key === "Enter") {
-                    checkAnswer();
-                }
-            });
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+      updateQuestion();
+      document.getElementById("answerInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
+    });
+  </script>
 </body>
 </html>
