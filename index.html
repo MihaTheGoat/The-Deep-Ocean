@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Deep Sea Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
             --deep-blue: #001a33;
@@ -18,10 +18,10 @@
             background-color: var(--deep-blue);
             color: var(--ocean-teal);
             text-align: center;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Kanit', sans-serif;
             background-image: 
-                linear-gradient(to bottom, rgba(0, 10, 30, 0.8), rgba(0, 40, 80, 0.5)),
-                url('https://source.unsplash.com/1920x1080/?deepsea,marine');
+                radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%),
+                url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -44,11 +44,11 @@
         }
 
         .title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-family: 'Russo One', sans-serif;
+            font-size: 4rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px var(--bioluminescent);
-            letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--bioluminescent);
+            letter-spacing: 3px;
             background: linear-gradient(to right, #00ffff, #00bfff, #0080ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -66,20 +66,23 @@
         }
 
         .question-number {
-            font-size: 1.3rem;
+            font-family: 'Tektur', sans-serif;
+            font-size: 1.5rem;
             color: var(--bioluminescent);
             margin-bottom: 5px;
             font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .progress-container {
             width: 100%;
             max-width: 500px;
-            height: 8px;
+            height: 10px;
             background: rgba(0, 191, 255, 0.2);
             border-radius: 10px;
-            margin: 15px auto;
+            margin: 20px auto;
             overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .progress-bar {
@@ -91,17 +94,19 @@
         }
 
         .container {
-            background: rgba(0, 20, 40, 0.85);
-            padding: 40px;
+            background: rgba(0, 20, 40, 0.9);
+            padding: 40px 50px;
             border-radius: 20px;
             width: 85%;
             max-width: 700px;
-            box-shadow: 0 0 40px rgba(0, 200, 255, 0.3);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 200, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 200, 255, 0.3);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .container::before {
@@ -130,51 +135,59 @@
         }
 
         .question {
-            font-size: 1.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
             margin-bottom: 40px;
-            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
             line-height: 1.5;
             min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
+            font-weight: 500;
+            letter-spacing: 1px;
         }
 
         .answer-box {
-            padding: 16px 25px;
-            font-size: 1.2rem;
-            background: rgba(0, 40, 80, 0.7);
+            padding: 18px 30px;
+            font-size: 1.3rem;
+            background: rgba(0, 40, 80, 0.8);
             color: white;
             border: 2px solid var(--ocean-teal);
-            border-radius: 12px;
+            border-radius: 15px;
             width: 80%;
             max-width: 500px;
-            margin: 0 auto 25px;
+            margin: 0 auto 30px;
             transition: all 0.4s ease;
+            font-family: 'Kanit', sans-serif;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .answer-box:focus {
             outline: none;
             border-color: var(--bioluminescent);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
-            background: rgba(0, 60, 120, 0.8);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 60, 120, 0.9);
         }
 
         button {
             background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
             color: var(--deep-blue);
-            padding: 16px 40px;
+            padding: 18px 45px;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0, 200, 255, 0.4);
         }
 
         button::before {
@@ -192,7 +205,7 @@
 
         button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 200, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 200, 255, 0.6);
         }
 
         button:hover::before {
@@ -204,15 +217,16 @@
         }
 
         .response {
-            min-height: 32px;
+            min-height: 40px;
             margin-top: 30px;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
+            font-family: 'Tektur', sans-serif;
         }
 
         .response.show {
@@ -221,128 +235,84 @@
         }
 
         .correct {
-            background: rgba(0, 255, 0, 0.15);
+            background: rgba(0, 255, 0, 0.2);
             color: #00ff88;
             border: 1px solid #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
         }
 
         .incorrect {
-            background: rgba(255, 0, 0, 0.15);
+            background: rgba(255, 0, 0, 0.2);
             color: #ff5555;
             border: 1px solid #ff5555;
         }
 
-        .bubbles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 0;
+        .code-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-top: 40px;
+            color: var(--bioluminescent);
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            letter-spacing: 3px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--ocean-teal);
         }
 
-        .bubble {
+        .deep-sea-creature {
             position: absolute;
-            bottom: -100px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float linear infinite;
+            width: 150px;
+            height: 150px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.6;
+            z-index: 0;
+            filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+            animation: float 15s ease-in-out infinite;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(5deg); }
         }
 
         @media (max-width: 768px) {
             .title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             .container {
                 padding: 30px;
                 width: 90%;
             }
             .question {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 min-height: 80px;
             }
             .answer-box {
                 width: 90%;
-                padding: 14px 20px;
+                padding: 15px 20px;
+                font-size: 1.1rem;
             }
-        }
-
-        .completion-celebration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 10, 30, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease;
-        }
-
-        .completion-celebration.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .celebration-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: var(--bioluminescent);
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 0 0 20px var(--bioluminescent);
-        }
-
-        .celebration-subtitle {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 40px;
-            max-width: 80%;
-        }
-
-        .jellyfish {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 200, 255, 0.8), transparent 70%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            filter: blur(10px);
-            animation: floatJelly 10s ease-in-out infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes floatJelly {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
+            button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
             }
-            50% {
-                transform: translateY(-50px) rotate(5deg);
+            .response {
+                font-size: 1.3rem;
+                padding: 15px;
+            }
+            .code-display {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bubbles" id="bubbles"></div>
-
     <div class="header">
-        <div class="title">The Deep Sea</div>
-        <div class="question-number" id="questionNum">Question 1 of 8</div>
+        <div class="title">THE DEEP SEA</div>
+        <div class="question-number" id="questionNum">QUESTION 1 OF 8</div>
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
         </div>
@@ -350,90 +320,53 @@
 
     <div class="container">
         <div class="question" id="currentQuestion"></div>
-        <input type="text" class="answer-box" id="answerInput" placeholder="Type your answer..." autocomplete="off">
-        <button onclick="checkAnswer()">Submit</button>
+        <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
+        <button onclick="checkAnswer()">SUBMIT</button>
         <div class="response" id="response"></div>
-    </div>
-
-    <div class="completion-celebration" id="completionCelebration">
-        <div class="jellyfish" style="top:20%; left:15%;"></div>
-        <div class="jellyfish" style="top:70%; left:80%; animation-delay:2s;"></div>
-        <div class="jellyfish" style="top:40%; left:70%; animation-delay:4s;"></div>
-        <div class="celebration-title">Quiz Complete!</div>
-        <div class="celebration-subtitle">You've mastered the mysteries of the deep sea!</div>
-        <button onclick="location.reload()">Take Quiz Again</button>
+        <div class="code-display hidden" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
     </div>
 
     <script>
-        // Create bubbles
-        function createBubbles() {
-            const bubblesContainer = document.getElementById('bubbles');
-            const bubbleCount = 20;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                // Random size between 5 and 30px
-                const size = Math.random() * 25 + 5;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                
-                // Random position
-                bubble.style.left = `${Math.random() * 100}%`;
-                
-                // Random animation duration between 10 and 20s
-                const duration = Math.random() * 10 + 10;
-                bubble.style.animationDuration = `${duration}s`;
-                
-                // Random delay
-                bubble.style.animationDelay = `${Math.random() * 10}s`;
-                
-                bubblesContainer.appendChild(bubble);
-            }
-        }
+        // Available fonts used in this design:
+        // 1. 'Russo One' - Used for main title (bold, futuristic)
+        // 2. 'Tektur' - Used for question numbers (techy feel)
+        // 3. 'Orbitron' - Used for questions (sci-fi/futuristic)
+        // 4. 'Kanit' - Main body font (clean, readable)
+        // 5. 'Bebas Neue' - Buttons (bold, uppercase)
 
         let currentQuestionIndex = 0;
         const questions = [
             {
-                question: "1 in 50 million, from red to the color of the sea",
-                answer: "blue lobster",
-                hint: "It's a rare color variant of a crustacean"
+                question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA",
+                answer: "blue lobster"
             },
             {
-                question: "What terrifying deep-sea creature has a bioluminescent lure?",
-                answer: "anglerfish",
-                hint: "Females have a glowing fishing rod-like appendage"
+                question: "WHAT TERRIFYING DEEP-SEA CREATURE HAS A BIOLUMINESCENT LURE?",
+                answer: "anglerfish"
             },
             {
-                question: "The deepest known part of the ocean (two words)",
-                answer: "mariana trench",
-                hint: "Located in the western Pacific Ocean"
+                question: "THE DEEPEST KNOWN PART OF THE OCEAN (TWO WORDS)",
+                answer: "mariana trench"
             },
             {
-                question: "This deep-sea fish has a transparent head and tubular eyes",
-                answer: "barreleye",
-                hint: "Also called 'spook fish'"
+                question: "THIS DEEP-SEA FISH HAS A TRANSPARENT HEAD AND TUBULAR EYES",
+                answer: "barreleye"
             },
             {
-                question: "Percentage of Earth's oceans that are deep sea (above 50%)",
-                answer: ["90%", "ninety percent", "90 percent"],
-                hint: "The vast majority of our oceans are deep"
+                question: "PERCENTAGE OF EARTH'S OCEANS THAT ARE DEEP SEA (ABOVE 50%)",
+                answer: ["90%", "ninety percent", "90 percent"]
             },
             {
-                question: "This deep-sea creature can stretch its stomach to swallow prey larger than itself",
-                answer: ["black swallower", "black swallower fish"],
-                hint: "Found in tropical and temperate waters"
+                question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF",
+                answer: ["black swallower", "black swallower fish"]
             },
             {
-                question: "The largest known deep-sea creature (two words)",
-                answer: "giant squid",
-                hint: "Can grow up to 43 feet long"
+                question: "THE LARGEST KNOWN DEEP-SEA CREATURE (TWO WORDS)",
+                answer: "giant squid"
             },
             {
-                question: "This deep-sea jellyfish looks like a floating alien spaceship",
-                answer: ["bloodybelly", "bloodybelly comb jelly"],
-                hint: "Its stomach glows red"
+                question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP",
+                answer: ["bloodybelly", "bloodybelly comb jelly"]
             }
         ];
 
@@ -441,7 +374,7 @@
             if (currentQuestionIndex < questions.length) {
                 const currentQ = questions[currentQuestionIndex];
                 document.getElementById("currentQuestion").textContent = currentQ.question;
-                document.getElementById("questionNum").textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF ${questions.length}`;
                 document.getElementById("answerInput").value = "";
                 document.getElementById("response").className = "response";
                 document.getElementById("response").textContent = "";
@@ -453,15 +386,12 @@
                 document.getElementById("answerInput").focus();
             } else {
                 // Quiz completed
-                document.getElementById("currentQuestion").textContent = "Final Question Completed!";
+                document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+                document.getElementById("questionNum").textContent = "FULLY EXPLORED";
                 document.getElementById("answerInput").style.display = "none";
                 document.querySelector("button").style.display = "none";
                 document.getElementById("progressBar").style.width = "100%";
-                
-                // Show celebration after delay
-                setTimeout(() => {
-                    document.getElementById("completionCelebration").classList.add("show");
-                }, 1500);
+                document.getElementById("codeDisplay").classList.remove("hidden");
             }
         }
 
@@ -478,33 +408,18 @@
             }
 
             if (isCorrect) {
-                responseElement.textContent = "✓ " + getRandomCongrats();
+                responseElement.textContent = "✓ CORRECT!";
                 responseElement.className = "response correct show";
                 currentQuestionIndex++;
-                setTimeout(updateQuestion, 1500);
+                setTimeout(updateQuestion, 1000);
             } else {
-                responseElement.textContent = "✗ " + currentQ.hint;
+                responseElement.textContent = "✗ INCORRECT - TRY AGAIN";
                 responseElement.className = "response incorrect show";
             }
         }
 
-        function getRandomCongrats() {
-            const congrats = [
-                "Deep sea genius!",
-                "Ocean master!",
-                "Marine expert!",
-                "Perfect!",
-                "Excellent!",
-                "You're a deep sea explorer!",
-                "Brilliant!",
-                "Fantastic!"
-            ];
-            return congrats[Math.floor(Math.random() * congrats.length)];
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createBubbles();
             updateQuestion();
             
             // Add keyboard support
