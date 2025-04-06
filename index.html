@@ -8,9 +8,9 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle, #001a33 0%, #000814 100%);
+      background: linear-gradient(to top, #000814 0%, #005f99 100%);
       color: #00f7ff;
-      overflow-x: hidden;
+      overflow: hidden;
       position: relative;
     }
 
@@ -69,51 +69,6 @@
       transition: width 0.5s ease-in-out;
     }
 
-    .css-fish {
-      width: 40px;
-      height: 20px;
-      background: #00c8c8;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      position: absolute;
-      animation: swim 25s linear infinite;
-      opacity: 0.7;
-    }
-
-    .css-fish::after {
-      content: '';
-      position: absolute;
-      right: -10px;
-      top: 6px;
-      width: 12px;
-      height: 8px;
-      background: #00ffff;
-      clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-    }
-
-    @keyframes swim {
-      0% {
-        left: -60px;
-        transform: scaleX(1);
-      }
-      50% {
-        top: calc(100% - 100px);
-      }
-      100% {
-        left: 110%;
-        transform: scaleX(1);
-      }
-    }
-
-    .monster {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      z-index: 1;
-      opacity: 0.95;
-    }
-
     .bubble {
       position: absolute;
       bottom: 0;
@@ -154,14 +109,6 @@
     </div>
   </div>
 
-  <!-- Fish doodles -->
-  <div class="css-fish" style="top: 25%; left: -60px; animation-delay: 0s;"></div>
-  <div class="css-fish" style="top: 60%; left: -80px; animation-delay: 5s;"></div>
-  <div class="css-fish" style="top: 40%; left: -100px; animation-delay: 10s;"></div>
-
-  <!-- Monster fish image -->
-  <img src="/mnt/data/image.png" class="monster" alt="Monster Fish" />
-
   <script>
     const questions = [
       "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA",
@@ -198,7 +145,6 @@
 
     loadQuestion();
 
-    // Bubble spawning
     setInterval(() => {
       const bubble = document.createElement("div");
       bubble.className = "bubble";
