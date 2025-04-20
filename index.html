@@ -210,80 +210,80 @@
   </div>
 
   <script>
-    const allQuestions = [
-      { question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", answer: "blue lobster" },
-      { question: "BORN FROM STONE, YET ALIVE I GROW; MY ARMS EMBRACE BUT NEVER LET GO.", answer: "coral" },
-      { question: "A MOUNTAIN THAT WALKS, A FOREST THAT HIDES; I BREATHE THROUGH MY TAIL, AND DANCE ON THE TIDES.", answer: "whale shark" },
-      { question: "I SPEAK WITHOUT LIPS, AND ANSWER WITHOUT THOUGHT; SAILORS FEAR MY WHISPER, FOR IT’S THE ONLY SOUND I’VE CAUGHT", answer: "the bloop" },
-      { question: "I’M A GIANT THAT DOESN’T GROW, A TRAVELER WITH NO FEET. I CAN DROWN SHIPS BUT NEVER DRINK.", answer: "a wave" },
-      { question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
-      { question: "EYES BIGGER THAN PLATES IN A REALM WITHOUT SUN, MY WRITHING SHADOW MAKES WHALES TURN TO RUN—YET I'M TORN APART BY WHAT'S GREEN WHEN IT'S DONE.", answer: "giant squid" },
-      { question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", answer: ["bloodybelly", "bloodybelly comb jelly"] }
-    ];
+  const encodedData = [
+    { q: "MSBJTlMgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
+    { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJRyBHUk9XOyBNeSBBUk1TIEVNQlJBQ0UgQlVUIE5FVkVSIExFVCBHTw==", a: "Y29yYWw=" },
+    { q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLOyBBIEZPUkVTVCBUSEFUIEhJREVTIEkgQlJFQVRIRSBUSElTSyBUTyBMSVZF", a: "d2hhbGUgc2hhcms=" },
+    { q: "SSBTSFBFQSBXSVRIT1VUIExJUFMsIEFORCBBTlNXRVIgV0lUSE9VVCBUSFJPVUdIVDsgU0FJTE9SUyBGRUFUIE1ZIFdISVNQRVIsIEZPUiBJVOKAmVMgVEhFIE9OTFkgU09VTkQgSSdWRSBDQVVHSFQ=", a: "dGhlIGJsb29w" },
+    { q: "ScKjTUEgR0lBTlQgVEhBVCBET0VTTeKAmUcgR1JPVywgwqBUUkFWRUxFUiBXSVRIIE5PIEZFRVQuIEkgQ0FOIERST1dOIFNISVBTIEJVVCBORVZFUiBEEk9OSw==", a: "YSB3YXZl" },
+    { q: "VEhJUyBERVFQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUSCBJVFMgU1RPTUFDSCBUTyBTV0FMTExPVyBQUkVZIExBUkdFUiBUSEFOIElUU0VMRg==", a: "YmxhY2sgc3dhbGxvd2Vy" },
+    { q: "RVlFUyBCSVJHR0VSIFRIIEFOIFBMQVRFUyBJTlMgQSBSRUFMTSBXSVRIT1VUIFNVTiwgTVkgV1JJVEhJTkcgU0hBRE9XIE1BS0VTIFdIQUxFUyBUVVIgVE8gUlVOLTktRVQgSUdOQVQ=", a: "Z2lhbnQgc3F1aWQ=" },
+    { q: "VEhJUyBERVFQLVNFQSBFTEVNSU4gTE9PS0lORyBKRUxMWUZJU0ggU0hBUkVTIElUUyBOQU1FIFdJVEggQSBGTE9BVElORyBBTElFTiBTSVBTA==", a: "Ymxvb2R5YmVsbHkgY29tYiBqZWxseQ==" }
+  ];
 
-    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-    let currentQuestionIndex = 0;
+  const decode = str => atob(str);
 
-    function updateQuestion() {
-      if (currentQuestionIndex < selectedQuestions.length) {
-        const q = selectedQuestions[currentQuestionIndex];
-        document.getElementById("currentQuestion").textContent = q.question;
-        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
-        document.getElementById("answerInput").value = "";
-        document.getElementById("response").className = "response";
-        document.getElementById("response").textContent = "";
-        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
-      } else {
-        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-        document.getElementById("questionNum").textContent = "COMPLETED";
-        document.getElementById("answerInput").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("codeDisplay").style.display = "block";
-      }
+  const allQuestions = encodedData.map(item => ({
+    question: decode(item.q),
+    answer: decode(item.a).split("||")
+  }));
+
+  const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+  let currentQuestionIndex = 0;
+
+  function updateQuestion() {
+    if (currentQuestionIndex < selectedQuestions.length) {
+      const q = selectedQuestions[currentQuestionIndex];
+      document.getElementById("currentQuestion").textContent = q.question;
+      document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("response").className = "response";
+      document.getElementById("response").textContent = "";
+      document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+    } else {
+      document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+      document.getElementById("questionNum").textContent = "COMPLETED";
+      document.getElementById("answerInput").style.display = "none";
+      document.querySelector("button").style.display = "none";
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("codeDisplay").style.display = "block";
     }
+  }
 
-    function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-      const responseEl = document.getElementById("response");
-      const currentQ = selectedQuestions[currentQuestionIndex];
-      let correct = false;
+  function checkAnswer() {
+    const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+    const responseEl = document.getElementById("response");
+    const currentQ = selectedQuestions[currentQuestionIndex];
+    const correct = currentQ.answer.includes(userAnswer);
 
-      if (Array.isArray(currentQ.answer)) {
-        correct = currentQ.answer.includes(userAnswer);
-      } else {
-        correct = userAnswer === currentQ.answer;
-      }
-
-      if (correct) {
-        responseEl.textContent = "✓ CORRECT!";
-        responseEl.className = "response correct show";
-        currentQuestionIndex++;
-        setTimeout(updateQuestion, 1000);
-      } else {
-        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-        responseEl.className = "response incorrect show";
-      }
+    if (correct) {
+      responseEl.textContent = "✓ CORRECT!";
+      responseEl.className = "response correct show";
+      currentQuestionIndex++;
+      setTimeout(updateQuestion, 1000);
+    } else {
+      responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+      responseEl.className = "response incorrect show";
     }
+  }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      updateQuestion();
-      document.getElementById("answerInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") checkAnswer();
-      });
-
-      // Bubble animation
-      const bubblesContainer = document.getElementById("bubbles");
-      setInterval(() => {
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.style.left = `${Math.random() * 100}%`;
-        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
-        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
-        bubblesContainer.appendChild(bubble);
-        setTimeout(() => bubble.remove(), 10000);
-      }, 300);
+  document.addEventListener('DOMContentLoaded', function () {
+    updateQuestion();
+    document.getElementById("answerInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") checkAnswer();
     });
-  </script>
+
+    const bubblesContainer = document.getElementById("bubbles");
+    setInterval(() => {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+      bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+      bubblesContainer.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 10000);
+    }, 300);
+  });
+</script>
 </body>
 </html>
