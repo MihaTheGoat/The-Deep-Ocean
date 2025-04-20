@@ -210,31 +210,18 @@
   </div>
 
   <script>
-    const quizData = "W3sicSI6IjEgSU4gNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIE9GIFRIRSBTRUEiLCJhIjoiYmx1ZSBsb2JzdGVyIn0seyJxIjoiQk9STiBGUk9NIFNUT05FLCBZRVQgQUxJVkUgSSBHUk9XOyBNWSBBUk1TIEVNQlJBQ0UgQlVUIE5FVkVSIEVUIEdPLiIsImEiOiJjb3JhbCJ9LHsiciI6IkEgTU9VTlRBSU4gVEhBVCBXQUxLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEhFIFRIUk9VR0ggTVkgVEFJTCwgQU5EIERBTkNFIE9OIFRIRSBUSURFUy4iLCJzIjoiaHdoYWxlIHNoYXJrIn0seyJxIjoiSSBTUEVBSyBXSVRIT1VUIExJUFMsIEFORCBBTlNXRVIgV0lUSE9VVCBUSElOS1Q7IFNBSUxPUlMgRkVBUiBNWSBXSElTUEVSLCBGT1IgSVTigJlTIFRIRSBPUkwgU09VTkQgSSdWRSBDQVVHSFQiLCJhIjoidGhlIGJsb29wIn0seyJxIjoiSSdNIEEgR0lBTlQgVEhBVCBET0VTTidUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRVQuIEkgQ0FOIEJST1dOIFNISVBTIEJVVCBORVZFUiBEUklOSy4iLCJhIjoiYSB3YXZlIn0seyJxIjoiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRVRDSCBJVFMgU1RPTUFDSCBUTyBTV0FMTE9XIFBSRVkgTEFSR0VSIFRIQU4gSVRTRUxGIiwiYSI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InEiOiJFWUVTIEJJR0dFUiBUSEFOIFBMQVRFUyBJTiBBIFJFQUxNIFdJVEhPVVQgU1VOLCBNWSBXUklUSElORyBTSEFET1cgTUFLRVMgV0hBTEVTIABSVVJOIFRPIABVTuKAlFlFVCBJJ00gVE9STiBBUEFSVCBCWSBXSEFUX1MgR1JFRU4gV0hFTiBJVF9TIE9ORS4iLCJhIjoiZ2lhbnQgc3F1aWQifSx7InEiOiJUSElTIERFRVAtU0VBIEpFTExZRklTSCBMT09LUyBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwiYSI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
-
-    function decodeQuizData() {
-      try {
-        const decodedString = atob(quizData);
-        const questions = JSON.parse(decodedString);
-        
-        return questions.map(q => ({
-          question: q.q || q.r, 
-          answer: q.a || q.s    
-        }));
-      } catch (e) {
-        console.error("Error decoding quiz data:", e);
-        return []; 
-      }
-    }
-
-    const allQuestions = decodeQuizData();
+    // Base64 encoded questions (now properly formatted)
+    const encodedQuiz = "W3sicSI6IjEgSU4gNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIE9GIFRIRSBTRUEiLCJhIjoiYmx1ZSBsb2JzdGVyIn0seyJxIjoiQk9STiBGUk9NIFNUT05FLCBZRVQgQUxJVkUgSSBHUk9XOyBNWSBBUk1TIEVNQlJBQ0UgQlVUIE5FVkVSIEVUIEdPLiIsImEiOiJjb3JhbCJ9LHsicSI6IkEgTU9VTlRBSU4gVEhBVCBXQUxLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEhFIFRIUk9VR0ggTVkgVEFJTCwgQU5EIERBTkNFIE9OIFRIRSBUSURFUy4iLCJhIjoid2hhbGUgc2hhcmsifSx7InEiOiJJIFNQRUFLIFdJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRISU5LVDsgU0FJTE9SUyBGRUFSIE1ZIFdISVNQRVIsIEZPUiBJVOKAmVMgVEhFIE9OTFkgU09VTkQgSSdWRSBDQVVHSFQiLCJhIjoidGhlIGJsb29wIn0seyJxIjoiSSdNIEEgR0lBTlQgVEhBVCBET0VTTiYjMzk7VCBHUk9XLCBBIFRSQVZFTEVSIFdJVEggTk8gRkVULiBJIENTTiBCUk9XTiBTSElQUyBCVVQgTkVWRVIgRFJJTksiLCJhIjoiYSB3YXZlIn1d";
+    
+    // Decode and parse questions
+    const allQuestions = JSON.parse(atob(encodedQuiz));
     const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
       if (currentQuestionIndex < selectedQuestions.length) {
         const q = selectedQuestions[currentQuestionIndex];
-        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("currentQuestion").textContent = q.q;
         document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
         document.getElementById("answerInput").value = "";
         document.getElementById("response").className = "response";
@@ -256,10 +243,10 @@
       const currentQ = selectedQuestions[currentQuestionIndex];
       let correct = false;
 
-      if (Array.isArray(currentQ.answer)) {
-        correct = currentQ.answer.some(ans => ans.toLowerCase() === userAnswer);
+      if (Array.isArray(currentQ.a)) {
+        correct = currentQ.a.includes(userAnswer);
       } else {
-        correct = userAnswer === currentQ.answer.toLowerCase();
+        correct = userAnswer === currentQ.a;
       }
 
       if (correct) {
