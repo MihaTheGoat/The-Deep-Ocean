@@ -211,25 +211,29 @@
 
   <script>
   const encodedData = [
-    { q: "MSBJTlsgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIG9mIFRIRSBTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
-    { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJIEdST1c7IE15IEFSTVMgRU1CUkFDRSBCVVQgTkVWRVIgTEVUIEdP", a: "Y29yYWw=" },
-    { q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEggVEhST1VHSCBNWSBUQUlMLCBBTkQgREFOQ0UgT04gVEhFIFRJRURT", a: "d2hhbGUgc2hhcms=" },
-    { q: "SSBTRA==IFdJVEhPVVQgTElQUywgQU5EIFRIRSBPTkxZIFNPVU5EIEknVkUgQ0FVZ0hU", a: "dGhlIGJsb29w" },
-    { q: "SSdNIEEgR0lBTlQgVEhBVCBET0VTIE5PVEdST1csIEEgVFJBVkVMRVIgV0lUSE9VVCBOTyBGRUVULiBJIENBTiBETVJPV04gU0hJUFMgQlVUIE5FVkVSIERSSU5L", a: "YSB3YXZl" }
-  ];
+  { q: "MSBJTlsgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIG9mIFRIRSBTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
+  { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJIEdST1c7IE15IEFSTVMgRU1CUkFDRSBCVVQgTkVWRVIgTEVUIEdP", a: "Y29yYWw=" },
+  { q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEggVEhST1VHSCBNWSBUQUlMLCBBTkQgREFOQ0UgT04gVEhFIFRJRURT", a: "d2hhbGUgc2hhcms=" },
+  { q: "SSBTRA==IFdJVEhPVVQgTElQUywgQU5EIFRIRSBPTkxZIFNPVU5EIEknVkUgQ0FVZ0hU", a: "dGhlIGJsb29w" },
+  { q: "SSdNIEEgR0lBTlQgVEhBVCBET0VTIE5PVEdST1csIEEgVFJBVkVMRVIgV0lUSE9VVCBOTyBGRUVULiBJIENBTiBETVJPV04gU0hJUFMgQlVUIE5FVkVSIERSSU5L", a: "YSB3YXZl" }
+];
 
-  function decodeBase64(str) {
-    try {
-      return decodeURIComponent(escape(atob(str)));
-    } catch {
-      return "[Decoding error]";
-    }
+function decodeBase64(base64String) {
+  try {
+    const binary = atob(base64String);
+    const bytes = new Uint8Array([...binary].map(char => char.charCodeAt(0)));
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch (err) {
+    console.error("Decoding failed for:", base64String, err);
+    return "[Invalid encoded data]";
   }
+}
 
-  const allQuestions = encodedData.map(pair => ({
-    question: decodeBase64(pair.q),
-    answer: decodeBase64(pair.a)
-  }));
+const allQuestions = encodedData.map(pair => ({
+  question: decodeBase64(pair.q),
+  answer: decodeBase64(pair.a)
+}));
+;
 
   const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
   let currentQuestionIndex = 0;
