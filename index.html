@@ -206,38 +206,39 @@
     <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
     <button onclick="checkAnswer()">SUBMIT</button>
     <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay"></div>
+    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
   </div>
 
   <script>
-    // Base64 decoding function
-    function decodeBase64(str) {
-      return JSON.parse(atob(str));
-    }
+    const allQuestions = [
+      { question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", answer: "blue lobster" },
+      { question: "BORN FROM STONE, YET ALIVE I GROW; MY ARMS EMBRACE BUT NEVER LET GO.", answer: "coral" },
+      { question: "A MOUNTAIN THAT WALKS, A FOREST THAT HIDES; I BREATHE THROUGH MY TAIL, AND DANCE ON THE TIDES.", answer: "whale shark" },
+      { question: "I SPEAK WITHOUT LIPS, AND ANSWER WITHOUT THOUGHT; SAILORS FEAR MY WHISPER, FOR IT’S THE ONLY SOUND I’VE CAUGHT", answer: "the bloop" },
+      { question: "I’M A GIANT THAT DOESN’T GROW, A TRAVELER WITH NO FEET. I CAN DROWN SHIPS BUT NEVER DRINK.", answer: "a wave" },
+      { question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", answer: ["black swallower", "black swallower fish"] },
+      { question: "EYES BIGGER THAN PLATES IN A REALM WITHOUT SUN, MY WRITHING SHADOW MAKES WHALES TURN TO RUN—YET I'M TORN APART BY WHAT'S GREEN WHEN IT'S DONE.", answer: "giant squid" },
+      { question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", answer: ["bloodybelly", "bloodybelly comb jelly"] }
+    ];
 
-    // Encoded data
-    const encodedData = "W3sicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBsYXJnZXN0IHNwZWNpZXMgb2Ygc2hhcms/IiwgImFuc3dlciI6IndoYWxlIHNoYXJrIn0sIHsicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBkZWVwZXN0IHBhcnQgb2YgdGhlIG9jZWFuPyIsICJhbnN3ZXIiOiJtYXJpYW5hIHRyZW5jaCI9fSwgeyJxdWVzdGlvbiI6IldoYXQgaXMgdGhlIHNwZWVkIG9mIGxpZ2h0IGluIGEgdmFjdW1lLiIsICJhbnN3ZXIiOiIyOTk3OTI0NTggbWV0ZXJzIHBlciBzZWNvbmQiIH0sIHsicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBjaGVtaWNhbCBzeW1ib2wgZm9yIGdvYWwiLCJhbmdvb3giOiJhdSJ9LCB7InF1ZXN0aW9uIjoiV2hhdCBpcyB0aGUgY2FwaXRhbCBvZiBGcmFuY2UiLCJhbnN3ZXIiOiJwYXJpcwifV0=";
-
-    // Decoding the base64 string to JSON
-    const decodedData = decodeBase64(encodedData);
+    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
-      if (currentQuestionIndex < decodedData.length) {
-        const q = decodedData[currentQuestionIndex];
+      if (currentQuestionIndex < selectedQuestions.length) {
+        const q = selectedQuestions[currentQuestionIndex];
         document.getElementById("currentQuestion").textContent = q.question;
         document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
         document.getElementById("answerInput").value = "";
         document.getElementById("response").className = "response";
         document.getElementById("response").textContent = "";
-        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / decodedData.length) * 100}%`;
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
         document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
         document.getElementById("questionNum").textContent = "COMPLETED";
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
         document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("codeDisplay").textContent = "YOUR CODE: XK7B9M2R";  // Your code here
         document.getElementById("codeDisplay").style.display = "block";
       }
     }
@@ -245,11 +246,13 @@
     function checkAnswer() {
       const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
       const responseEl = document.getElementById("response");
-      const currentQ = decodedData[currentQuestionIndex];
+      const currentQ = selectedQuestions[currentQuestionIndex];
       let correct = false;
 
-      if (userAnswer === currentQ.answer.toLowerCase()) {
-        correct = true;
+      if (Array.isArray(currentQ.answer)) {
+        correct = currentQ.answer.includes(userAnswer);
+      } else {
+        correct = userAnswer === currentQ.answer;
       }
 
       if (correct) {
