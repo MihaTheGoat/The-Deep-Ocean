@@ -6,189 +6,144 @@
   <title>The Deep Sea Quiz</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --deep-blue: #001a33;
-      --ocean-teal: #00c8c8;
-      --bioluminescent: #00ffea;
-      --bubble-color: rgba(255, 255, 255, 0.1);
-    }
-
     body {
-      background-color: var(--deep-blue);
-      color: var(--ocean-teal);
-      text-align: center;
       font-family: 'Kanit', sans-serif;
-      background-image: radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%), url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
-      background-size: cover;
-      background-attachment: fixed;
-      min-height: 100vh;
+      background-color: #021d2b;
+      color: #ffffff;
       margin: 0;
       padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
       overflow: hidden;
       position: relative;
-    }
-
-    .bubbles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .bubble {
-      position: absolute;
-      bottom: -50px;
-      width: 15px;
-      height: 15px;
-      background: var(--bubble-color);
-      border-radius: 50%;
-      animation: rise 10s linear infinite;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh) scale(0.5);
-        opacity: 0;
-      }
     }
 
     .header {
-      margin-bottom: 40px;
-      z-index: 2;
-      position: relative;
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     .title {
-      font-family: 'Russo One', sans-serif;
-      font-size: 4rem;
-      color: #003366;
-      text-shadow: 0 0 15px var(--bioluminescent);
-      letter-spacing: 3px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 60px;
+      color: #00bcd4;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
     .question-number {
-      font-family: 'Tektur', sans-serif;
-      font-size: 1.5rem;
-      color: var(--bioluminescent);
-      margin-bottom: 5px;
+      font-family: 'Russo One', sans-serif;
+      font-size: 20px;
+      color: #ffffff;
+      margin-top: 10px;
     }
 
     .progress-container {
+      margin-top: 20px;
       width: 100%;
-      max-width: 500px;
-      height: 10px;
-      background: rgba(0, 191, 255, 0.2);
-      border-radius: 10px;
-      margin: 20px auto;
+      background-color: #444;
+      height: 5px;
     }
 
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
-      width: 0%;
-      transition: width 0.5s ease;
-      border-radius: 10px;
+      width: 0;
+      background-color: #00bcd4;
     }
 
     .container {
-      background: rgba(0, 20, 40, 0.9);
-      padding: 40px 50px;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
-      position: relative;
-      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #00bcd4;
+      border-radius: 10px;
+      width: 300px;
+      background-color: #1d2d3b;
     }
 
     .question {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 40px;
-      min-height: 100px;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
 
     .answer-box {
-      padding: 18px 30px;
-      font-size: 1.3rem;
-      background: rgba(0, 40, 80, 0.8);
-      color: white;
-      border: 2px solid var(--ocean-teal);
-      border-radius: 15px;
       width: 80%;
-      max-width: 500px;
-      margin: 0 auto 30px;
-    }
-
-    .answer-box:focus {
-      outline: none;
-      border-color: var(--bioluminescent);
-      background: rgba(0, 60, 120, 0.9);
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      background-color: #444;
+      color: #ffffff;
     }
 
     button {
-      background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
-      color: var(--deep-blue);
-      padding: 18px 45px;
+      padding: 10px 20px;
+      font-size: 16px;
       border: none;
-      border-radius: 15px;
-      font-weight: bold;
-      font-size: 1.3rem;
+      background-color: #00bcd4;
+      color: white;
       cursor: pointer;
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0288d1;
     }
 
     .response {
-      margin-top: 30px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .response.show {
-      opacity: 1;
-    }
-
-    .correct {
-      color: #00ff88;
-    }
-
-    .incorrect {
-      color: #ff5555;
-    }
-
-    .code-display {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin-top: 40px;
-      color: var(--bioluminescent);
-      padding: 20px;
-      border: 1px solid var(--ocean-teal);
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.4);
+      margin-top: 10px;
+      font-size: 18px;
       display: none;
     }
 
-    @media (max-width: 768px) {
-      .title {
-        font-size: 2.8rem;
-      }
+    .response.show {
+      display: block;
+    }
 
-      .question {
-        font-size: 1.6rem;
+    .correct {
+      color: #4caf50;
+    }
+
+    .incorrect {
+      color: #f44336;
+    }
+
+    .code-display {
+      display: none;
+      font-size: 18px;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+      color: #00bcd4;
+    }
+
+    .bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      animation: bubbleAnimation 5s infinite ease-in-out;
+    }
+
+    @keyframes bubbleAnimation {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
       }
     }
   </style>
@@ -209,13 +164,84 @@
     <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
     <button onclick="checkAnswer()">SUBMIT</button>
     <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+    <div class="code-display" id="codeDisplay"></div>
   </div>
 
   <script>
-    // Base64 encoded questions (properly formatted)
-    const encodedQuiz = "W3sicSI6IkkgU1BFRyBXSVRIB0xVRVRTLg0gIiLCJhIjoiQmx1ZSBtY2JlcmZhdw6BzZ2hwb3JydWVznRlgtP2JhZGhlbmxfFlcbg==";
-    // Decoded fixed questions
+    function decodeBase64(str) {
+      return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+
+    const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUSEFUIFdBTFBTOiBBIEZPUkVTVCBUSFJBVF9ISURFUyBPTiBUSURFUy4gSSBCUkVBRFQgVEhST1VHSF9NWV9UQUlMLCBBTkQgREFOQ0UgT04gVElERVMuIiwiYW5zd2VyIjoid2hhbGUgc2hhcmsifSx7InF1ZXN0aW9uIjoiSSBzcGVhayB3aXRob3V0IGxpcHMsIGFuZCBhbnN3ZXIgd2l0aG91dCB0aG91Z2h0OyBzYWlsb3JzIGZlYXIgbXkgd2hpc3BlciwgZm9yIGl04oCZcyB0aGVvbmx5IHNvdW5kIHRoYXQgaW4gYWxsIGJlY2F1c2UgY2FtZSBSZW1lZGlhdGlvbi4iLCJhbnN3ZXIiOiJ0aGUgYmxvb3AifSx7InF1ZXN0aW9uIjoiSSdtIGEgZ2lhbnQgdGhhdCBkb2Vzbid0IGdyb3csIGEgdHJhdmVsZXIgd2l0aCBubyBmZWV0LiBJIGNhbiBkcm93biBzaGlwcyBidXQgbmV2ZXIgcHJpbmsuIiwiYW5zd2VyIjoiYSB3YXZlIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUC1TRUEgQ1JFQVRVUkUgQ0FOIFNUUkVUQ0ggSVRTIENTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSUdHRVIgVEhBTiBQTElURVMgSU5UTyBBIFJFQUxNIFdJVEhPVVQgU1VOLF9NWSBXUklUSU5HIFNIQURPVyBNSVRFUyBXSEFMRVMgVFVURi9TRlQ9QFZMS6hWQEV0dyakICFYSkFFklZQNciUDVAZ2RYCNksQh31g0oCOm5cmRBTEAsgNfgfIE3Tog27TyFFgS5tBrOl4XBZZIrnEIk8wJNB4t17A==";
+
+    const encodedCodeLine = "PGRpdiBjbGFzcyA9ImNvZGUgZGlzcGxheSIgaWQ9ImNvZGVkaXNwbGF5Ij5Zb3VyIENvZGU6IFhLN0I5TTJSPC9kaXY+";
+
+    const decodedData = JSON.parse(decodeBase64(encodedData));
+    const decodedCodeLine = decodeBase64(encodedCodeLine);
+
+    let currentQuestionIndex = 0;
+
+    function updateQuestion() {
+      if (currentQuestionIndex < decodedData.length) {
+        const q = decodedData[currentQuestionIndex];
+        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+        document.getElementById("answerInput").value = "";
+        document.getElementById("response").className = "response";
+        document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / decodedData.length) * 100}%`;
+      } else {
+        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+        document.getElementById("questionNum").textContent = "COMPLETED";
+        document.getElementById("answerInput").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("codeDisplay").textContent = decodedCodeLine;
+        document.getElementById("codeDisplay").style.display = "block";
+      }
+    }
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const responseEl = document.getElementById("response");
+      const currentQ = decodedData[currentQuestionIndex];
+      let correct = false;
+
+      if (userAnswer === currentQ.answer.toLowerCase()) {
+        correct = true;
+      }
+
+      if (correct) {
+        responseEl.textContent = "✓ CORRECT!";
+        responseEl.className = "response correct show";
+        currentQuestionIndex++;
+        setTimeout(updateQuestion, 1000);
+      } else {
+        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+        responseEl.className = "response incorrect show";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateQuestion();
+      document.getElementById("answerInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
+    });
   </script>
 </body>
-</html
+</html>
