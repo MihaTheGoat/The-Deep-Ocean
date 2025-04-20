@@ -210,15 +210,7 @@
   </div>
 
   <script>
-  const encodedData = [
-  { q: "MSBJTlsgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIG9mIFRIRSBTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
-  { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJIEdST1c7IE15IEFSTVMgRU1CUkFDRSBCVVQgTkVWRVIgTEVUIEdP", a: "Y29yYWw=" },
-  { q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEggVEhST1VHSCBNWSBUQUlMLCBBTkQgREFOQ0UgT04gVEhFIFRJRURT", a: "d2hhbGUgc2hhcms=" },
-  { q: "SSBTRA==IFdJVEhPVVQgTElQUywgQU5EIFRIRSBPTkxZIFNPVU5EIEknVkUgQ0FVZ0hU", a: "dGhlIGJsb29w" },
-  { q: "SSdNIEEgR0lBTlQgVEhBVCBET0VTIE5PVEdST1csIEEgVFJBVkVMRVIgV0lUSE9VVCBOTyBGRUVULiBJIENBTiBETVJPV04gU0hJUFMgQlVUIE5FVkVSIERSSU5L", a: "YSB3YXZl" }
-];
-
-function decodeBase64(base64String) {
+  function decoder(base64String) {
   try {
     const binary = atob(base64String);
     const bytes = new Uint8Array([...binary].map(char => char.charCodeAt(0)));
@@ -229,11 +221,45 @@ function decodeBase64(base64String) {
   }
 }
 
+const encodedData = [
+  {
+    q: "MSBJTiA1MCBNSUxMSU9OLCBGUk9NIFJFRCBUTyBUSEUgQ09MT1IgT0YgVEhFIFNFQQ==",
+    a: "Ymx1ZSBsb2JzdGVy"
+  },
+  {
+    q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJIEdST1c7IE15IEFSTVMgRU1CUkFDRSBCVVQgTkVWRVIgTEVUIEdP",
+    a: "Y29yYWw="
+  },
+  {
+    q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEggVEhST1VHSCBNWSBUQUlMLCBBTkQgREFOQ0UgT04gVEhFIFRJRURT",
+    a: "d2hhbGUgc2hhcms="
+  },
+  {
+    q: "SSBTVEVBRCBXSVRIT1VUIExJUFMsIEFORCBBTlNXRVIgV0lUSE9VVCBUSFJJTkingCBJVCdzIFRIRSBPTkxZIFNPVU5EIElWRSBDQVVHSFQu",
+    a: "dGhlIGJsb29w"
+  },
+  {
+    q: "SSdNIEEgR0lBTlQgVEhBVCBET0VTIE5PVEdST1csIEEgVFJBVkVMRVIgV0lUSE9VVCBOTyBGRUVULiBJIENBTiBETVJPV04gU0hJUFMgQlVUIE5FVkVSIERSSU5L",
+    a: "YSB3YXZl"
+  },
+  {
+    q: "VEhJUyBERVFQLVNFQSBDUkVBVFVSRQ0KQ0FOIFNUUkVUQ0ggSVRTIFNUT01BQ0ggVE8gU1dBTExPVyBQUkVZIExBUkdFUiBUSEFOIElURUxGRg==",
+    a: "YmxhY2sgc3dhbGxvd2Vy"
+  },
+  {
+    q: "RVlFUyBCSVJHR0VSIFRIRU4gUExBVEVTIElOIEEgUkVBTE0gV0lUSE9VVCBTVU4sIE1ZIFdSSVRISU5HIFNIQURPVyBNQUtFUyBXSEFMRVMgVFVSTiBUTyBSVU4g4oCTWUVUIElNIFRPUk4gQVBBUlQgQlkgV0hBVCdTIEdSRUVOIFdIRU4gSVQnUyBET05F",
+    a: "Z2lhbnQgc3F1aWQ="
+  },
+  {
+    q: "VEhJUyBERVVOLVNFQSBFTkRFTElBIEpFTExZRklTSCBMT09LUyBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQ",
+    a: "Ymxvb2R5YmVsbHkgY29tYiBqZWxseQ=="
+  }
+];
+
 const allQuestions = encodedData.map(pair => ({
-  question: decodeBase64(pair.q),
-  answer: decodeBase64(pair.a)
+  question: decoder(pair.q),
+  answer: decoder(pair.a)
 }));
-;
 
   const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
   let currentQuestionIndex = 0;
