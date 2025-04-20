@@ -210,23 +210,24 @@
   </div>
 
   <script>
+    // Base64 decoding function
     function decodeBase64(str) {
-      return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+      return JSON.parse(atob(str));
     }
 
+    // Encoded data
     const encodedData = "W3sicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBsYXJnZXN0IHNwZWNpZXMgb2Ygc2hhcms/IiwgImFuc3dlciI6IndoYWxlIHNoYXJrIn0sIHsicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBkZWVwZXN0IHBhcnQgb2YgdGhlIG9jZWFuPyIsICJhbnN3ZXIiOiJtYXJpYW5hIHRyZW5jaCI9fSwgeyJxdWVzdGlvbiI6IldoYXQgaXMgdGhlIHNwZWVkIG9mIGxpZ2h0IGluIGEgdmFjdW1lLiIsICJhbnN3ZXIiOiIyOTk3OTI0NTggbWV0ZXJzIHBlciBzZWNvbmQiIH0sIHsicXVlc3Rpb24iOiJXaGF0IGlzIHRoZSBjaGVtaWNhbCBzeW1ib2wgZm9yIGdvYWwiLCJhbmdvb3giOiJhdSJ9LCB7InF1ZXN0aW9uIjoiV2hhdCBpcyB0aGUgY2FwaXRhbCBvZiBGcmFuY2UiLCJhbnN3ZXIiOiJwYXJpcwifV0=";
-    const decodedData = JSON.parse(decodeBase64(encodedData));
 
+    // Decoding the base64 string to JSON
+    const decodedData = decodeBase64(encodedData);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
       if (currentQuestionIndex < decodedData.length) {
         const q = decodedData[currentQuestionIndex];
         document.getElementById("currentQuestion").textContent = q.question;
-        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`; 
-        document.getElementById("answerInput").value = ''; // Clear input box
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+        document.getElementById("answerInput").value = "";
         document.getElementById("response").className = "response";
         document.getElementById("response").textContent = "";
         document.getElementById("progressBar").style.width = `${(currentQuestionIndex / decodedData.length) * 100}%`;
@@ -236,7 +237,7 @@
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
         document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("codeDisplay").textContent = "YOUR CODE: XK7B9M2R"; // Display code after quiz
+        document.getElementById("codeDisplay").textContent = "YOUR CODE: XK7B9M2R";  // Your code here
         document.getElementById("codeDisplay").style.display = "block";
       }
     }
@@ -267,6 +268,18 @@
       document.getElementById("answerInput").addEventListener("keypress", function(e) {
         if (e.key === "Enter") checkAnswer();
       });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
     });
   </script>
 </body>
