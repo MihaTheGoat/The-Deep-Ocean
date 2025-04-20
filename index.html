@@ -214,73 +214,8 @@
 
   <script>
     // Base64 encoded questions (properly formatted)
-    const encodedQuiz = "W3sicSI6IjEgSU4gNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIE9GIFRIRSBTRUEiLCJhIjoiYmx1ZSBsb2JzdGVyIn0seyJxIjoiQk9STiBGUk9NIFNUT05FLCBZRVQgQUxJVkUgSSBHUk9XOyBNWSBBUk1TIEVNQlJBQ0UgQlVUIE5FVkVSIEVUIEdPLiIsImEiOiJjb3JhbCJ9LHsicSI6IkEgTU9VTlRBSU4gVEhBVCBXQUxLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBVEhFIFRIUk9VR0ggTVkgVEFJTCwgQU5EIERBTkNFIE9OIFRIRSBUSURFUy4iLCJhIjoid2hhbGUgc2hhcmsifSx7InEiOiJJIFNQRUFLIFdJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRISU5LVDsgU0FJTE9SUyBGRUFSIE1ZIFdISVNQRVIsIEZPUiBJVOKAmVMgVEhFIE9OTFkgU09VTkQgSSdWRSBDQVVHSFQiLCJhIjoidGhlIGJsb29wIn0seyJxIjoiSSdNIEEgR0lBTlQgVEhBVCBET0VTTiYjMzk7VCBHUk9XLCBBIFRSQVZFTEVSIFdJVEggTk8gRkVULiBJIENTTiBCUk9XTiBTSElQUyBCVVQgTkVWRVIgRFJJTksiLCJhIjoidGhlIGJsb29wIn1d";
-
-    // Decode and parse questions
-    const allQuestions = JSON.parse(atob(encodedQuiz));
-    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-    let currentQuestionIndex = 0;
-
-    function updateQuestion() {
-      if (currentQuestionIndex < selectedQuestions.length) {
-        const q = selectedQuestions[currentQuestionIndex];
-        document.getElementById("currentQuestion").textContent = q.q;
-        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
-        document.getElementById("answerInput").value = "";
-        document.getElementById("response").className = "response";
-        document.getElementById("response").textContent = "";
-        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
-      } else {
-        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-        document.getElementById("questionNum").textContent = "COMPLETED";
-        document.getElementById("answerInput").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("codeDisplay").style.display = "block";
-      }
-    }
-
-    function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-      const responseEl = document.getElementById("response");
-      const currentQ = selectedQuestions[currentQuestionIndex];
-      let correct = false;
-
-      if (Array.isArray(currentQ.a)) {
-        correct = currentQ.a.includes(userAnswer);
-      } else {
-        correct = userAnswer === currentQ.a;
-      }
-
-      if (correct) {
-        responseEl.textContent = "✓ CORRECT!";
-        responseEl.className = "response correct show";
-        currentQuestionIndex++;
-        setTimeout(updateQuestion, 1000);
-      } else {
-        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-        responseEl.className = "response incorrect show";
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      updateQuestion();
-      document.getElementById("answerInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") checkAnswer();
-      });
-
-      // Bubble animation
-      const bubblesContainer = document.getElementById("bubbles");
-      setInterval(() => {
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.style.left = `${Math.random() * 100}%`;
-        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
-        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
-        bubblesContainer.appendChild(bubble);
-        setTimeout(() => bubble.remove(), 10000);
-      }, 300);
-    });
+    const encodedQuiz = "W3sicSI6IkkgU1BFRyBXSVRIB0xVRVRTLg0gIiLCJhIjoiQmx1ZSBtY2JlcmZhdw6BzZ2hwb3JydWVznRlgtP2JhZGhlbmxfFlcbg==";
+    // Decoded fixed questions
   </script>
 </body>
-</html>
+</html
