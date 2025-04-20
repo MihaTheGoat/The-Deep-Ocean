@@ -1,32 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Deep Sea Quiz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>The Deep Sea</title>
   <style>
-    /* [same styles you provided — unchanged] */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    #questionNum {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    #currentQuestion {
+      margin: 15px 0;
+    }
+    #response {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    #codeDisplay {
+      display: none;
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    input, button {
+      margin-top: 10px;
+      padding: 8px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <div class="bubbles" id="bubbles"></div>
 
-  <div class="header">
-    <div class="title">THE DEEP SEA</div>
-    <div class="question-number" id="questionNum">QUESTION 1 OF 5</div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-  </div>
+  <h1>THE DEEP SEA</h1>
+  <div id="questionNum"></div>
+  <div id="currentQuestion"></div>
 
-  <div class="container">
-    <div class="question" id="currentQuestion"></div>
-    <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
-    <button onclick="checkAnswer()">SUBMIT</button>
-    <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
-  </div>
+  <input type="text" id="answerInput" placeholder="Enter your answer..." />
+  <button onclick="checkAnswer()">Submit</button>
+
+  <div id="response" class="response"></div>
+  <div id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+
+  <script>
+    const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUSEFUIFdBTFBTOiBBIEZPUkVTVCBUSFJBVF9ISURFUyBPTiBUSURFUy4gSSBCUkVBRFQgVEhST1VHSF9NWV9UQUlMLCBBTkQgREFOQ0UgT04gVElERVMuIiwiYW5zd2VyIjoid2hhbGUgc2hhcmsifSx7InF1ZXN0aW9uIjoiSSBzcGVhayB3aXRob3V0IGxpcHMsIGFuZCBhbnN3ZXIgd2l0aG91dCB0aG91Z2h0OyBzYWlsb3JzIGZlYXIgbXkgd2hpc3BlciwgZm9yIGl04oCZcyB0aGUgb25seSBzb3VuZCBJJ2ZlIGNhdWdodC4iLCJhbnN3ZXIiOiJ0aGUgYmxvb3AifSx7InF1ZXN0aW9uIjoiSSdtIGEgZ2lhbnQgdGhhdCBkb2Vzbid0IGdyb3csIGEgdHJhdmVsZXIgd2l0aCBubyBmZWV0LiBJIGNhbiBkcm93biBzaGlwcyBidXQgbmV2ZXIgcHJpbmsuIiwiYW5zd2VyIjoiYSB3YXZlIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUC1TRUEgQ1JFQVRVUkUgQ0FOIFNUUkVUQ0ggSVRTIENTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSUdHRVIgVEhBTiBQTElURVMgSU5UTyBBIFJFQUxNIFdJVEhPVVQgU1VOLF9NWSBXUklUSU5HIFNIQURPVyBNSVRFUyBXSEFMRVMgVFVSTiBUTyBSVU7igJRUZSBJ4oCZTSBUT1JOIEFQQVJUIEJZIFdIQVRcdTAwMjdzIEdSRUVOIFdIRU4gSVQg4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
+
+    const decodedData = JSON.parse(atob(encodedData));
+    const selectedQuestions = decodedData.sort(() => 0.5 - Math.random()).slice(0, 5);
+    let currentQuestionIndex = 0;
+
+    function updateQuestion() {
+      if (currentQuestionIndex < selectedQuestions.length) {
+        const q = selectedQuestions[currentQuestionIndex];
+        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+        document.getElementById("answerInput").value = "";
+        document.getElementById("response").className = "";
+        document.getElementById("response").textContent = "";
+      } else {
+        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+        document.getElementById("questionNum").textContent = "COMPLETED";
+        document.getElementById("answerInput").style.display = "none";
+        document.querySelector("button").style.display = "none";
+        document.getElementById("response").textContent = "";
+        document.getElementById("codeDisplay").style.display = "block";
+      }
+    }
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const responseEl = document.getElementById("response");
+      const currentQ = selectedQuestions[currentQuestionIndex];
+      let correct = false;
+
+      if (Array.isArray(currentQ.answer)) {
+        correct = currentQ.answer.map(a => a.toLowerCase()).includes(userAnswer);
+      } else {
+        correct = userAnswer === currentQ.answer.toLowerCase();
+      }
+
+      if (correct) {
+        responseEl.textContent = "✓ CORRECT!";
+        responseEl.className = "response correct";
+        currentQuestionIndex++;
+        setTimeout(updateQuestion, 1000);
+      } else {
+        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+        responseEl.className = "response incorrect";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      updateQuestion();
+      document.getElementById("answerInput").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+    });
+  </script>
+
+</body>
+</html>
+
 
   <script>
   const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUQVQgV0FMS1MsIEEgRk9SRVNUIFRIQVQgSElERVM7IEkgQlJFQURUIFRIRVJPVUdIIE15IFRBSUwsIEFORCBEQU5DRSBPTiBUSURFUy4iLCJhbnN3ZXIiOiJ3aGFsZSBzaGFyayJ9LHsicXVlc3Rpb24iOiJJIFNQRUFLS1dJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRIT1VHSFQ7IFNBSUxPUlMgRkVBUiBNeSBXSElTUEVSLCBGT1IgSVTigJlTIFRIRSBPTkxZIFNPVU5EIFRIRSBPTkxZIFNPVU5EIENBVUdUSCIsImFuc3dlciI6InRoZSBibG9vcCJ9LHsicXVlc3Rpb24iOiJJ4oCZTSBBIEdJQU5UIFRIQVQgRE9FU05cdTAwMjdUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRUVULiBJIENBTiBEUk9XTiBTSElQUyBUTyBORVZFUiBQUklOSy4iLCJhbnN3ZXIiOiJhIHdhdmUifSx7InF1ZXN0aW9uIjoiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUIElUUyBTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSVJHR0VSIFRIQU4gUExBVEVTIElOVE8gQSBSRUFMTSBXSVRIT1VUIFNVTiwgTVkgV1JJVElORyBTSEFET1cgTUFLRVMgV0hBTEVTIFRVUk4gVE8gUlVO4oCRVEUgSeKAmSBUT1JOIEFQQVJUIEJZIFdIQVQnUyBHUkVFTiBXSEVOIElU4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
