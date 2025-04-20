@@ -1,62 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Deep Sea</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Deep Sea Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --deep-blue: #001a33;
+      --ocean-teal: #00c8c8;
+      --bioluminescent: #00ffea;
+      --bubble-color: rgba(255, 255, 255, 0.1);
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f9f9f9;
+      background-color: var(--deep-blue);
+      color: var(--ocean-teal);
+      text-align: center;
+      font-family: 'Kanit', sans-serif;
+      background-image: radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%), url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
     }
-    h1 {
-      font-size: 28px;
+
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
-    #questionNum {
+
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      width: 15px;
+      height: 15px;
+      background: var(--bubble-color);
+      border-radius: 50%;
+      animation: rise 10s linear infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .header {
+      margin-bottom: 40px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      color: #003366;
+      text-shadow: 0 0 15px var(--bioluminescent);
+      letter-spacing: 3px;
+    }
+
+    .question-number {
+      font-family: 'Tektur', sans-serif;
+      font-size: 1.5rem;
+      color: var(--bioluminescent);
+      margin-bottom: 5px;
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 500px;
+      height: 10px;
+      background: rgba(0, 191, 255, 0.2);
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px;
+    }
+
+    .container {
+      background: rgba(0, 20, 40, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .question {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      min-height: 100px;
+    }
+
+    .answer-box {
+      padding: 18px 30px;
+      font-size: 1.3rem;
+      background: rgba(0, 40, 80, 0.8);
+      color: white;
+      border: 2px solid var(--ocean-teal);
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    .answer-box:focus {
+      outline: none;
+      border-color: var(--bioluminescent);
+      background: rgba(0, 60, 120, 0.9);
+    }
+
+    button {
+      background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
+      color: var(--deep-blue);
+      padding: 18px 45px;
+      border: none;
+      border-radius: 15px;
       font-weight: bold;
-      margin-top: 20px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
-    #currentQuestion {
-      margin: 15px 0;
-    }
-    #response {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .correct {
-      color: green;
-    }
-    .incorrect {
-      color: red;
-    }
-    #codeDisplay {
-      display: none;
+
+    .response {
       margin-top: 30px;
-      font-size: 20px;
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #333;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
-    input, button {
-      margin-top: 10px;
-      padding: 8px;
-      font-size: 14px;
+
+    .response.show {
+      opacity: 1;
+    }
+
+    .correct {
+      color: #00ff88;
+    }
+
+    .incorrect {
+      color: #ff5555;
+    }
+
+    .code-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-top: 40px;
+      color: var(--bioluminescent);
+      padding: 20px;
+      border: 1px solid var(--ocean-teal);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
+
+      .question {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bubbles" id="bubbles"></div>
 
-  <h1>THE DEEP SEA</h1>
-  <div id="questionNum"></div>
-  <div id="currentQuestion"></div>
+  <div class="header">
+    <div class="title">THE DEEP SEA</div>
+    <div class="question-number" id="questionNum">QUESTION 1 OF 5</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
 
-  <input type="text" id="answerInput" placeholder="Enter your answer..." />
-  <button onclick="checkAnswer()">Submit</button>
-
-  <div id="response" class="response"></div>
-  <div id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+  <div class="container">
+    <div class="question" id="currentQuestion"></div>
+    <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
+    <button onclick="checkAnswer()">SUBMIT</button>
+    <div class="response" id="response"></div>
+    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+  </div>
 
   <script>
-    const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUSEFUIFdBTFBTOiBBIEZPUkVTVCBUSFJBVF9ISURFUyBPTiBUSURFUy4gSSBCUkVBRFQgVEhST1VHSF9NWV9UQUlMLCBBTkQgREFOQ0UgT04gVElERVMuIiwiYW5zd2VyIjoid2hhbGUgc2hhcmsifSx7InF1ZXN0aW9uIjoiSSBzcGVhayB3aXRob3V0IGxpcHMsIGFuZCBhbnN3ZXIgd2l0aG91dCB0aG91Z2h0OyBzYWlsb3JzIGZlYXIgbXkgd2hpc3BlciwgZm9yIGl04oCZcyB0aGUgb25seSBzb3VuZCBJJ2ZlIGNhdWdodC4iLCJhbnN3ZXIiOiJ0aGUgYmxvb3AifSx7InF1ZXN0aW9uIjoiSSdtIGEgZ2lhbnQgdGhhdCBkb2Vzbid0IGdyb3csIGEgdHJhdmVsZXIgd2l0aCBubyBmZWV0LiBJIGNhbiBkcm93biBzaGlwcyBidXQgbmV2ZXIgcHJpbmsuIiwiYW5zd2VyIjoiYSB3YXZlIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUC1TRUEgQ1JFQVRVUkUgQ0FOIFNUUkVUQ0ggSVRTIENTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSUdHRVIgVEhBTiBQTElURVMgSU5UTyBBIFJFQUxNIFdJVEhPVVQgU1VOLF9NWSBXUklUSU5HIFNIQURPVyBNSVRFUyBXSEFMRVMgVFVSTiBUTyBSVU7igJRUZSBJ4oCZTSBUT1JOIEFQQVJUIEJZIFdIQVRcdTAwMjdzIEdSRUVOIFdIRU4gSVQg4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
+     const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUQVQgV0FMS1MsIEEgRk9SRVNUIFRIQVQgSElERVM7IEkgQlJFQURUIFRIRVJPVUdIIE15IFRBSUwsIEFORCBEQU5DRSBPTiBUSURFUy4iLCJhbnN3ZXIiOiJ3aGFsZSBzaGFyayJ9LHsicXVlc3Rpb24iOiJJIFNQRUFLS1dJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRIT1VHSFQ7IFNBSUxPUlMgRkVBUiBNeSBXSElTUEVSLCBGT1IgSVTigJlTIFRIRSBPTkxZIFNPVU5EIFRIRSBPTkxZIFNPVU5EIENBVUdUSCIsImFuc3dlciI6InRoZSBibG9vcCJ9LHsicXVlc3Rpb24iOiJJ4oCZTSBBIEdJQU5UIFRIQVQgRE9FU05cdTAwMjdUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRUVULiBJIENBTiBEUk9XTiBTSElQUyBUTyBORVZFUiBQUklOSy4iLCJhbnN3ZXIiOiJhIHdhdmUifSx7InF1ZXN0aW9uIjoiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUIElUUyBTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSVJHR0VSIFRIQU4gUExBVEVTIElOVE8gQSBSRUFMTSBXSVRIT1VUIFNVTiwgTVkgV1JJVElORyBTSEFET1cgTUFLRVMgV0hBTEVTIFRVUk4gVE8gUlVO4oCRVEUgSeKAmSBUT1JOIEFQQVJUIEJZIFdIQVQnUyBHUkVFTiBXSEVOIElU4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
 
     const decodedData = JSON.parse(atob(encodedData));
     const selectedQuestions = decodedData.sort(() => 0.5 - Math.random()).slice(0, 5);
@@ -68,14 +222,15 @@
         document.getElementById("currentQuestion").textContent = q.question;
         document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
         document.getElementById("answerInput").value = "";
-        document.getElementById("response").className = "";
+        document.getElementById("response").className = "response";
         document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
         document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
         document.getElementById("questionNum").textContent = "COMPLETED";
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
-        document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = "100%";
         document.getElementById("codeDisplay").style.display = "block";
       }
     }
@@ -94,94 +249,33 @@
 
       if (correct) {
         responseEl.textContent = "✓ CORRECT!";
-        responseEl.className = "response correct";
+        responseEl.className = "response correct show";
         currentQuestionIndex++;
         setTimeout(updateQuestion, 1000);
       } else {
         responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-        responseEl.className = "response incorrect";
+        responseEl.className = "response incorrect show";
       }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       updateQuestion();
-      document.getElementById("answerInput").addEventListener("keypress", function (e) {
+      document.getElementById("answerInput").addEventListener("keypress", function(e) {
         if (e.key === "Enter") checkAnswer();
       });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
     });
   </script>
-
-</body>
-</html>
-
-
-  <script>
-  const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUQVQgV0FMS1MsIEEgRk9SRVNUIFRIQVQgSElERVM7IEkgQlJFQURUIFRIRVJPVUdIIE15IFRBSUwsIEFORCBEQU5DRSBPTiBUSURFUy4iLCJhbnN3ZXIiOiJ3aGFsZSBzaGFyayJ9LHsicXVlc3Rpb24iOiJJIFNQRUFLS1dJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRIT1VHSFQ7IFNBSUxPUlMgRkVBUiBNeSBXSElTUEVSLCBGT1IgSVTigJlTIFRIRSBPTkxZIFNPVU5EIFRIRSBPTkxZIFNPVU5EIENBVUdUSCIsImFuc3dlciI6InRoZSBibG9vcCJ9LHsicXVlc3Rpb24iOiJJ4oCZTSBBIEdJQU5UIFRIQVQgRE9FU05cdTAwMjdUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRUVULiBJIENBTiBEUk9XTiBTSElQUyBUTyBORVZFUiBQUklOSy4iLCJhbnN3ZXIiOiJhIHdhdmUifSx7InF1ZXN0aW9uIjoiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUIElUUyBTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSVJHR0VSIFRIQU4gUExBVEVTIElOVE8gQSBSRUFMTSBXSVRIT1VUIFNVTiwgTVkgV1JJVElORyBTSEFET1cgTUFLRVMgV0hBTEVTIFRVUk4gVE8gUlVO4oCRVEUgSeKAmSBUT1JOIEFQQVJUIEJZIFdIQVQnUyBHUkVFTiBXSEVOIElU4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
-
-  const decodedData = JSON.parse(atob(encodedData));
-  const selectedQuestions = decodedData.sort(() => 0.5 - Math.random()).slice(0, 5);
-  let currentQuestionIndex = 0;
-
-  function updateQuestion() {
-    if (currentQuestionIndex < selectedQuestions.length) {
-      const q = selectedQuestions[currentQuestionIndex];
-      document.getElementById("currentQuestion").textContent = q.question;
-      document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
-      document.getElementById("answerInput").value = "";
-      document.getElementById("response").className = "response";
-      document.getElementById("response").textContent = "";
-      document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
-    } else {
-      document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-      document.getElementById("questionNum").textContent = "COMPLETED";
-      document.getElementById("answerInput").style.display = "none";
-      document.querySelector("button").style.display = "none";
-      document.getElementById("progressBar").style.width = "100%";
-      document.getElementById("codeDisplay").style.display = "block";
-    }
-  }
-
-  function checkAnswer() {
-    const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-    const responseEl = document.getElementById("response");
-    const currentQ = selectedQuestions[currentQuestionIndex];
-    let correct = false;
-
-    if (Array.isArray(currentQ.answer)) {
-      correct = currentQ.answer.map(a => a.toLowerCase()).includes(userAnswer);
-    } else {
-      correct = userAnswer === currentQ.answer.toLowerCase();
-    }
-
-    if (correct) {
-      responseEl.textContent = "✓ CORRECT!";
-      responseEl.className = "response correct show";
-      currentQuestionIndex++;
-      setTimeout(updateQuestion, 1000);
-    } else {
-      responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-      responseEl.className = "response incorrect show";
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    updateQuestion();
-    document.getElementById("answerInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") checkAnswer();
-    });
-
-    // Bubble animation
-    const bubblesContainer = document.getElementById("bubbles");
-    setInterval(() => {
-      const bubble = document.createElement("div");
-      bubble.classList.add("bubble");
-      bubble.style.left = `${Math.random() * 100}%`;
-      bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
-      bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
-      bubblesContainer.appendChild(bubble);
-      setTimeout(() => bubble.remove(), 10000);
-    }, 300);
-  });
-</script>
 </body>
 </html>
