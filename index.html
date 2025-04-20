@@ -29,72 +29,72 @@
   </div>
 
   <script>
-    const encodedData = "WyB7IHF1ZXN0aW9uOiAiMSBJTiA1MCBNSUxMSU9OLCBGUk9NIFJFRCBUTyBUSEUgQ09MT1IgT0YgVEhFIFNFQSIsIGFuc3dlcjogImJsdWUgbG9ic3RlciIgfSwgeyBxdWVzdGlvbjogIkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwgYW5zd2VyOiAiY29yYWwiIH0sIHsgcXVlc3Rpb246ICJBIE1PVU5UQUlOIFRBVCBXQUxLUywgQSBGT1JFU1QgVEhBVCBISURFUzsgSSBCUkVBRFROIFRIRVJPVUdIIE15IFRBSUwsIEFORCBEQU5DRSBPTiBUSUUuIiwgYW5zd2VyOiAid2hhbGUgc2hhcmsiIH0sIHsgcXVlc3Rpb246ICJJI1MgU1BFQUsgV0lUSE9VVCBMSVBTLCBBTkQgQU5TV0VSIFdJVEhPVVQgVEhPVUdIVDsgU0FJTE9SUyBGRUFSIE15IFdISVNQRVIsIEZPUiBJVOKAmVMgVEhFIE9OTFkgU09VTkQgSVZFIENBVUdIVCIsIGFuc3dlcjogInRoZSBibG9vcCIgfSwgeyBxdWVzdGlvbjogIklNIEEgR0lBTlQgVEhBVCBET0VTTkXigJlUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRUVULiBJIENBTiBEUk9XTiBTSElQUyBUT1QgTkVWRVIgRFJJTksuIiwgYW5zd2VyOiAiYSB3YXZlIiB9LCB7IHF1ZXN0aW9uOiAiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUQ0ggSVRTIFNUT01BQ0ggVE8gU1dBTExPVyBQUkVZIExBUkdFUiBUSEFOIElUU0VMTiIsIGFuc3dlcjogWyAiYmxhY2sgc3dhbGxvd2VyIiwgImJsYWNrIHN3YWxsb3dlciBmaXNoIiBdIH0sIHsgcXVlc3Rpb246ICJFWUVTIEJJR0dFUiBUSEFOIFBMQVRFUyBJTlRPIEEgUkVBTE0gV0lUSE9VVCBTVU4sIE1ZIFdSSVRISU5HIFNIQURPVyBNQUtFUyBXSEFMRVMgVFVSTiBUTyBSVU7igJRFVCBJ4oCZTSBUT1JOIEFQQVJUIEJZIFdIQVQnUyBHUkVFTiBXSEVOIElUJ1MgRE9ORS4iLCBhbnN3ZXI6ICJnaWFudCBzcXVpZCIgfSwgeyBxdWVzdGlvbjogIlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIExJS0UgQSBGTE9BVElORyBBTElFTiBTUEFDRVNISVAiLCBhbnN3ZXI6IFsgImJsb29keWJlbGx5IiwgImJsb29keWJlbGx5IGNvbWIgamVsbHkiIF0gfSBd";
+  const encodedData = "W3sicXVlc3Rpb24iOiIxIElOIDUwIE1JTExJT04sIEZST00gUkVEIFRPIFRIRSBDT0xPUiBPRiBUSEUgU0VBIiwiYW5zd2VyIjoiYmx1ZSBsb2JzdGVyIn0seyJxdWVzdGlvbiI6IkJPUk4gRlJPTSBTVE9ORSxZRVQgQUxJVkUgSSBHUk9XIE15IEFSTVMgRU1CUkFDRSBCVVRORVZFUiBMRVQgR08uIiwiYW5zd2VyIjoiY29yYWwifSx7InF1ZXN0aW9uIjoiQSBNT1VOVEFJTiBUQVQgV0FMS1MsIEEgRk9SRVNUIFRIQVQgSElERVM7IEkgQlJFQURUIFRIRVJPVUdIIE15IFRBSUwsIEFORCBEQU5DRSBPTiBUSURFUy4iLCJhbnN3ZXIiOiJ3aGFsZSBzaGFyayJ9LHsicXVlc3Rpb24iOiJJIFNQRUFLS1dJVEhPVVQgTElQUywgQU5EIEFOU1dFUiBXSVRIT1VUIFRIT1VHSFQ7IFNBSUxPUlMgRkVBUiBNeSBXSElTUEVSLCBGT1IgSVTigJlTIFRIRSBPTkxZIFNPVU5EIFRIRSBPTkxZIFNPVU5EIENBVUdUSCIsImFuc3dlciI6InRoZSBibG9vcCJ9LHsicXVlc3Rpb24iOiJJ4oCZTSBBIEdJQU5UIFRIQVQgRE9FU05cdTAwMjdUIEdST1csIEEgVFJBVkVMRVIgV0lUSCBOTyBGRUVULiBJIENBTiBEUk9XTiBTSElQUyBUTyBORVZFUiBQUklOSy4iLCJhbnN3ZXIiOiJhIHdhdmUifSx7InF1ZXN0aW9uIjoiVEhJUyBERUVQLVNFQSBDUkVBVFVSRSBDQU4gU1RSRUNUIElUUyBTVE9NQUNIIFRPIFNXQUxMT1dQUkVZIExBUkdFUiBUTEFUIElUU0VMRiIsImFuc3dlciI6WyJibGFjayBzd2FsbG93ZXIiLCJibGFjayBzd2FsbG93ZXIgZmlzaCJdfSx7InF1ZXN0aW9uIjoiRVlFUyBCSVJHR0VSIFRIQU4gUExBVEVTIElOVE8gQSBSRUFMTSBXSVRIT1VUIFNVTiwgTVkgV1JJVElORyBTSEFET1cgTUFLRVMgV0hBTEVTIFRVUk4gVE8gUlVO4oCRVEUgSeKAmSBUT1JOIEFQQVJUIEJZIFdIQVQnUyBHUkVFTiBXSEVOIElU4oCZUyBET05FLiIsImFuc3dlciI6ImdpYW50IHNxdWlkIn0seyJxdWVzdGlvbiI6IlRISVMgREVFUCBTRUEgSkVMTFlGSVNIIExPT0tTIERFVklMSVNITUVOVCBMSUtFIEEgRkxPQVRJTkcgQUxJRU4gU1BBQ0VTSElQIiwgImFuc3dlciI6WyJibG9vZHliZWxseSIsImJsb29keWJlbGx5IGNvbWIgamVsbHkiXX1d";
 
-    const decodedData = JSON.parse(atob(encodedData));
-    const selectedQuestions = decodedData.sort(() => 0.5 - Math.random()).slice(0, 5);
-    let currentQuestionIndex = 0;
+  const decodedData = JSON.parse(atob(encodedData));
+  const selectedQuestions = decodedData.sort(() => 0.5 - Math.random()).slice(0, 5);
+  let currentQuestionIndex = 0;
 
-    function updateQuestion() {
-      if (currentQuestionIndex < selectedQuestions.length) {
-        const q = selectedQuestions[currentQuestionIndex];
-        document.getElementById("currentQuestion").textContent = q.question;
-        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
-        document.getElementById("answerInput").value = "";
-        document.getElementById("response").className = "response";
-        document.getElementById("response").textContent = "";
-        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
-      } else {
-        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-        document.getElementById("questionNum").textContent = "COMPLETED";
-        document.getElementById("answerInput").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("codeDisplay").style.display = "block";
-      }
+  function updateQuestion() {
+    if (currentQuestionIndex < selectedQuestions.length) {
+      const q = selectedQuestions[currentQuestionIndex];
+      document.getElementById("currentQuestion").textContent = q.question;
+      document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("response").className = "response";
+      document.getElementById("response").textContent = "";
+      document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+    } else {
+      document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+      document.getElementById("questionNum").textContent = "COMPLETED";
+      document.getElementById("answerInput").style.display = "none";
+      document.querySelector("button").style.display = "none";
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("codeDisplay").style.display = "block";
+    }
+  }
+
+  function checkAnswer() {
+    const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+    const responseEl = document.getElementById("response");
+    const currentQ = selectedQuestions[currentQuestionIndex];
+    let correct = false;
+
+    if (Array.isArray(currentQ.answer)) {
+      correct = currentQ.answer.map(a => a.toLowerCase()).includes(userAnswer);
+    } else {
+      correct = userAnswer === currentQ.answer.toLowerCase();
     }
 
-    function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-      const responseEl = document.getElementById("response");
-      const currentQ = selectedQuestions[currentQuestionIndex];
-      let correct = false;
-
-      if (Array.isArray(currentQ.answer)) {
-        correct = currentQ.answer.map(a => a.toLowerCase()).includes(userAnswer);
-      } else {
-        correct = userAnswer === currentQ.answer.toLowerCase();
-      }
-
-      if (correct) {
-        responseEl.textContent = "✓ CORRECT!";
-        responseEl.className = "response correct show";
-        currentQuestionIndex++;
-        setTimeout(updateQuestion, 1000);
-      } else {
-        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-        responseEl.className = "response incorrect show";
-      }
+    if (correct) {
+      responseEl.textContent = "✓ CORRECT!";
+      responseEl.className = "response correct show";
+      currentQuestionIndex++;
+      setTimeout(updateQuestion, 1000);
+    } else {
+      responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+      responseEl.className = "response incorrect show";
     }
+  }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      updateQuestion();
-      document.getElementById("answerInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") checkAnswer();
-      });
-
-      // Bubble animation
-      const bubblesContainer = document.getElementById("bubbles");
-      setInterval(() => {
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.style.left = `${Math.random() * 100}%`;
-        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
-        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
-        bubblesContainer.appendChild(bubble);
-        setTimeout(() => bubble.remove(), 10000);
-      }, 300);
+  document.addEventListener('DOMContentLoaded', function() {
+    updateQuestion();
+    document.getElementById("answerInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") checkAnswer();
     });
-  </script>
+
+    // Bubble animation
+    const bubblesContainer = document.getElementById("bubbles");
+    setInterval(() => {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+      bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+      bubblesContainer.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 10000);
+    }, 300);
+  });
+</script>
 </body>
 </html>
