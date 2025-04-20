@@ -223,10 +223,14 @@
 
   const decode = str => atob(str);
 
-  const allQuestions = encodedData.map(item => ({
-    question: decode(item.q),
-    answer: decode(item.a).includes("||") ? decode(item.a).split("||") : [decode(item.a)]
-  }));
+  const allQuestions = encodedData.map(item => {
+    const decodedQuestion = decode(item.q);
+    const decodedAnswer = decode(item.a);
+    return {
+      question: decodedQuestion,
+      answer: decodedAnswer.includes("||") ? decodedAnswer.split("||") : [decodedAnswer]
+    };
+  });
 
   const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
   let currentQuestionIndex = 0;
@@ -254,7 +258,7 @@
     const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
     const responseEl = document.getElementById("response");
     const currentQ = selectedQuestions[currentQuestionIndex];
-    const correct = currentQ.answer.includes(userAnswer);
+    const correct = currentQ.answer.some(ans => userAnswer === ans.toLowerCase());
 
     if (correct) {
       responseEl.textContent = "✓ CORRECT!";
@@ -273,6 +277,7 @@
       if (e.key === "Enter") checkAnswer();
     });
 
+    // Bubbles
     const bubblesContainer = document.getElementById("bubbles");
     setInterval(() => {
       const bubble = document.createElement("div");
