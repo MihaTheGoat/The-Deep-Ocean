@@ -210,39 +210,44 @@
   </div>
 
   <script>
-    // Creative encoding for questions and answers
-    const questionData = [
-      { q: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", a: ["blue lobster"] },
-      { q: "BORN FROM STONE, YET ALIVE I GROW; MY ARMS EMBRACE BUT NEVER LET GO.", a: ["coral"] },
-      { q: "A MOUNTAIN THAT WALKS, A FOREST THAT HIDES; I BREATHE THROUGH MY TAIL, AND DANCE ON THE TIDES.", a: ["whale shark"] },
-      { q: "I SPEAK WITHOUT LIPS, AND ANSWER WITHOUT THOUGHT; SAILORS FEAR MY WHISPER, FOR IT'S THE ONLY SOUND I'VE CAUGHT", a: ["the bloop"] },
-      { q: "I'M A GIANT THAT DOESN'T GROW, A TRAVELER WITH NO FEET. I CAN DROWN SHIPS BUT NEVER DRINK.", a: ["a wave"] },
-      { q: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", a: ["black swallower", "black swallower fish"] },
-      { q: "EYES BIGGER THAN PLATES IN A REALM WITHOUT SUN, MY WRITHING SHADOW MAKES WHALES TURN TO RUN—YET I'M TORN APART BY WHAT'S GREEN WHEN IT'S DONE.", a: ["giant squid"] },
-      { q: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", a: ["bloodybelly", "bloodybelly comb jelly"] }
+    // Plain text questions and answers (fully working version)
+    const allQuestions = [
+      { 
+        question: "1 IN 50 MILLION, FROM RED TO THE COLOR OF THE SEA", 
+        answer: "blue lobster" 
+      },
+      { 
+        question: "BORN FROM STONE, YET ALIVE I GROW; MY ARMS EMBRACE BUT NEVER LET GO.", 
+        answer: "coral" 
+      },
+      { 
+        question: "A MOUNTAIN THAT WALKS, A FOREST THAT HIDES; I BREATHE THROUGH MY TAIL, AND DANCE ON THE TIDES.", 
+        answer: "whale shark" 
+      },
+      { 
+        question: "I SPEAK WITHOUT LIPS, AND ANSWER WITHOUT THOUGHT; SAILORS FEAR MY WHISPER, FOR IT'S THE ONLY SOUND I'VE CAUGHT", 
+        answer: "the bloop" 
+      },
+      { 
+        question: "I'M A GIANT THAT DOESN'T GROW, A TRAVELER WITH NO FEET. I CAN DROWN SHIPS BUT NEVER DRINK.", 
+        answer: "a wave" 
+      },
+      { 
+        question: "THIS DEEP-SEA CREATURE CAN STRETCH ITS STOMACH TO SWALLOW PREY LARGER THAN ITSELF", 
+        answer: ["black swallower", "black swallower fish"] 
+      },
+      { 
+        question: "EYES BIGGER THAN PLATES IN A REALM WITHOUT SUN, MY WRITHING SHADOW MAKES WHALES TURN TO RUN—YET I'M TORN APART BY WHAT'S GREEN WHEN IT'S DONE.", 
+        answer: "giant squid" 
+      },
+      { 
+        question: "THIS DEEP-SEA JELLYFISH LOOKS LIKE A FLOATING ALIEN SPACESHIP", 
+        answer: ["bloodybelly", "bloodybelly comb jelly"] 
+      }
     ];
 
-    // Light obfuscation by reversing and mixing properties
-    const encodedQuestions = questionData.map(item => {
-      return {
-        x: item.q.split('').reverse().join(''), // Reverse the question
-        y: item.a.map(ans => ans.split('').map(c => c.charCodeAt(0)).join('_')) // ASCII codes for answers
-      };
-    });
-
-    // Function to decode questions
-    function getRandomQuestions() {
-      return encodedQuestions.map(item => {
-        return {
-          question: item.x.split('').reverse().join(''), // Un-reverse the question
-          answer: item.y.length === 1 ? 
-            item.y[0].split('_').map(code => String.fromCharCode(code)).join('') :
-            item.y.map(ans => ans.split('_').map(code => String.fromCharCode(code)).join('').split(',')
-        };
-      }).sort(() => 0.5 - Math.random()).slice(0, 5);
-    }
-
-    const selectedQuestions = getRandomQuestions();
+    // Select 5 random questions
+    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
@@ -271,9 +276,9 @@
       let correct = false;
 
       if (Array.isArray(currentQ.answer)) {
-        correct = currentQ.answer.some(ans => ans.toLowerCase() === userAnswer);
+        correct = currentQ.answer.includes(userAnswer);
       } else {
-        correct = userAnswer === currentQ.answer.toLowerCase();
+        correct = userAnswer === currentQ.answer;
       }
 
       if (correct) {
