@@ -210,107 +210,80 @@
   </div>
 
   <script>
+  document.addEventListener("DOMContentLoaded", () => {
     const encodedData = [
-  {
-    q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u",
-    a: "Ymx1ZSBsb2JzdGVy"
-  },
-  {
-    q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==",
-    a: "Y29yYWw="
-  },
-  {
-    q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==",
-    a: "d2hhbGUgc2hhcms="
-  },
-  {
-    q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==",
-    a: "dGhlIGJsb29w"
-  },
-  {
-    q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu",
-    a: "YSB3YXZl"
-  },
-  {
-    q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu",
-    a: "Y2hpbGxlZCBnZ2ltcHQgYm9s"
-  },
-  {
-    q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl",
-    a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM="
-  },
-  {
-    q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu",
-    a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy"
-  },
-  {
-    q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu",
-    a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl"
-  },
-  {
-    q: "SSBtYW5pbWluZyBzZW4gbG9vc3lhcHBod2lsZSBjdWxpbmUsIHdoZW4gaW5mbHVlbmNlIHdpdGggZ2FzdHBvb3lsLCBsdXh1cnkgbWlzc3RlcnkgaXMgY29uY2VybmVkIHdpdGggdGFyaXRpYWwgZXZpZGVuY2UgbmF0dXJlLCBkdXJpbmcgbG9uZyBkZXNpZ25lZCBwYXRoZW5zLi",
-    a: "ZGVzZXJ2YW52cmFuY2V9aXdpdCBzdG9yaWVzIFNvciBzb2Z0ZG9uU29sdmVtcmFxdWVsdHN2bg=="
-  }
-];
+      { q: "MSBJTlMgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
+      { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJRyBHUk9XOyBNeSBBUk1TIEVNQlJBQ0UgQlVUIE5FVkVSIExFVCBHTw==", a: "Y29yYWw=" },
+      { q: "QSBNT1VOVEFJTiBUSEFUIFdBTFBLOyBBIEZPUkVTVCBUSEFUIEhJREVTIEkgQlJFQVRIRSBUSElTSyBUTyBMSVZF", a: "d2hhbGUgc2hhcms=" },
+      { q: "SSBTSFBFQSBXSVRIT1VUIExJUFMsIEFORCBBTlNXRVIgV0lUSE9VVCBUSFJPVUdIVDsgU0FJTE9SUyBGRUFUIE1ZIFdISVNQRVIsIEZPUiBJVOKAmVMgVEhFIE9OTFkgU09VTkQgSSdWQSBDAUg=", a: "dGhlIGJsb29w" },
+      { q: "ScKjTUEgR0lBTlQgVEhBVCBET0VTMeKAmUcgR1JPVywgwqBUUkFWRUxFUiBXSVRIIE5PIEZFRVQuIEkgQ0FOIERST1dOIFNISVBTIEJVVCBORVZFUiBEUklOSw==", a: "YSB3YXZl" }
+    ];
 
-    const selectedQuestions = encodedQuestions.map(q => {
-      return {
-        question: atob(q.q),
-        answer: atob(q.a)
-      };
-    });
+    const decode = str => atob(str);
 
+    const allQuestions = encodedData.map(item => ({
+      question: decode(item.q),
+      answer: decode(item.a).split("||")
+    }));
+
+    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
+      const questionEl = document.getElementById("currentQuestion");
+      const questionNum = document.getElementById("questionNum");
+      const progress = document.getElementById("progressBar");
+      const response = document.getElementById("response");
+
       if (currentQuestionIndex < selectedQuestions.length) {
-        const q = selectedQuestions[currentQuestionIndex];
-        document.getElementById("currentQuestion").textContent = q.question;
-        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
+        const current = selectedQuestions[currentQuestionIndex];
+        questionEl.textContent = current.question;
+        questionNum.textContent = `QUESTION ${currentQuestionIndex + 1} OF ${selectedQuestions.length}`;
         document.getElementById("answerInput").value = "";
-        document.getElementById("response").className = "response";
-        document.getElementById("response").textContent = "";
-        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+        response.textContent = "";
+        response.className = "response";
+        progress.style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
-        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
-        document.getElementById("questionNum").textContent = "COMPLETED";
+        questionEl.textContent = "QUESTIONS COMPLETED!";
+        questionNum.textContent = "COMPLETED";
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
-        document.getElementById("progressBar").style.width = "100%";
+        progress.style.width = "100%";
         document.getElementById("codeDisplay").style.display = "block";
       }
     }
 
     function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
-      const responseEl = document.getElementById("response");
+      const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
+      const response = document.getElementById("response");
       const currentQ = selectedQuestions[currentQuestionIndex];
-      let correct = false;
+      const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
 
-      if (Array.isArray(currentQ.answer)) {
-        correct = currentQ.answer.includes(userAnswer);
-      } else {
-        correct = userAnswer === currentQ.answer;
-      }
-
-      if (correct) {
-        responseEl.textContent = "✓ CORRECT!";
-        responseEl.className = "response correct show";
+      if (isCorrect) {
+        response.textContent = "✓ CORRECT!";
+        response.className = "response correct show";
         currentQuestionIndex++;
         setTimeout(updateQuestion, 1000);
       } else {
-        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
-        responseEl.className = "response incorrect show";
+        response.textContent = "✗ INCORRECT - TRY AGAIN";
+        response.className = "response incorrect show";
       }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      updateQuestion();
-      document.getElementById("answerInput").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") checkAnswer();
-      });
+    document.getElementById("answerInput").addEventListener("keypress", e => {
+      if (e.key === "Enter") checkAnswer();
+    });
 
-      // Bubble animation
+    document.querySelector("button").addEventListener("click", checkAnswer);
+
+    updateQuestion();
+
+    const encodedCode = document.getElementById("codeDisplay").textContent;
+      const decodedCode = atob(encodedCode);
+
+      document.getElementById("codeDisplay").textContent = "YOUR CODE: " + decodedCode;
+
+    // Bubble animation
       const bubblesContainer = document.getElementById("bubbles");
       setInterval(() => {
         const bubble = document.createElement("div");
@@ -321,12 +294,7 @@
         bubblesContainer.appendChild(bubble);
         setTimeout(() => bubble.remove(), 10000);
       }, 300);
-
-      const encodedCode = document.getElementById("codeDisplay").textContent;
-      const decodedCode = atob(encodedCode);
-
-      document.getElementById("codeDisplay").textContent = "YOUR CODE: " + decodedCode;
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
