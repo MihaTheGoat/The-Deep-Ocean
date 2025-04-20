@@ -206,11 +206,10 @@
     <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
     <button onclick="checkAnswer()">SUBMIT</button>
     <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+    <div class="code-display" id="codeDisplay">WV91ciBDT0RFOiBYSzdCOVAyUg==</div>
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
     const encodedData = [
   {
     q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u",
@@ -254,65 +253,80 @@
   }
 ];
 
-    const decode = str => atob(str);
+    const selectedQuestions = encodedQuestions.map(q => {
+      return {
+        question: atob(q.q),
+        answer: atob(q.a)
+      };
+    });
 
-    const allQuestions = encodedData.map(item => ({
-      question: decode(item.q),
-      answer: decode(item.a).split("||")
-    }));
-
-    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
 
     function updateQuestion() {
-      const questionEl = document.getElementById("currentQuestion");
-      const questionNum = document.getElementById("questionNum");
-      const progress = document.getElementById("progressBar");
-      const response = document.getElementById("response");
-
       if (currentQuestionIndex < selectedQuestions.length) {
-        const current = selectedQuestions[currentQuestionIndex];
-        questionEl.textContent = current.question;
-        questionNum.textContent = `QUESTION ${currentQuestionIndex + 1} OF ${selectedQuestions.length}`;
+        const q = selectedQuestions[currentQuestionIndex];
+        document.getElementById("currentQuestion").textContent = q.question;
+        document.getElementById("questionNum").textContent = `QUESTION ${currentQuestionIndex + 1} OF 5`;
         document.getElementById("answerInput").value = "";
-        response.textContent = "";
-        response.className = "response";
-        progress.style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+        document.getElementById("response").className = "response";
+        document.getElementById("response").textContent = "";
+        document.getElementById("progressBar").style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
       } else {
-        questionEl.textContent = "QUESTIONS COMPLETED!";
-        questionNum.textContent = "COMPLETED";
+        document.getElementById("currentQuestion").textContent = "QUESTIONS COMPLETED!";
+        document.getElementById("questionNum").textContent = "COMPLETED";
         document.getElementById("answerInput").style.display = "none";
         document.querySelector("button").style.display = "none";
-        progress.style.width = "100%";
+        document.getElementById("progressBar").style.width = "100%";
         document.getElementById("codeDisplay").style.display = "block";
       }
     }
 
     function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
-      const response = document.getElementById("response");
+      const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const responseEl = document.getElementById("response");
       const currentQ = selectedQuestions[currentQuestionIndex];
-      const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
+      let correct = false;
 
-      if (isCorrect) {
-        response.textContent = "✓ CORRECT!";
-        response.className = "response correct show";
+      if (Array.isArray(currentQ.answer)) {
+        correct = currentQ.answer.includes(userAnswer);
+      } else {
+        correct = userAnswer === currentQ.answer;
+      }
+
+      if (correct) {
+        responseEl.textContent = "✓ CORRECT!";
+        responseEl.className = "response correct show";
         currentQuestionIndex++;
         setTimeout(updateQuestion, 1000);
       } else {
-        response.textContent = "✗ INCORRECT - TRY AGAIN";
-        response.className = "response incorrect show";
+        responseEl.textContent = "✗ INCORRECT - TRY AGAIN";
+        responseEl.className = "response incorrect show";
       }
     }
 
-    document.getElementById("answerInput").addEventListener("keypress", e => {
-      if (e.key === "Enter") checkAnswer();
+    document.addEventListener('DOMContentLoaded', function() {
+      updateQuestion();
+      document.getElementById("answerInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+
+      // Bubble animation
+      const bubblesContainer = document.getElementById("bubbles");
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
+        bubblesContainer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 10000);
+      }, 300);
+
+      const encodedCode = document.getElementById("codeDisplay").textContent;
+      const decodedCode = atob(encodedCode);
+
+      document.getElementById("codeDisplay").textContent = "YOUR CODE: " + decodedCode;
     });
-
-    document.querySelector("button").addEventListener("click", checkAnswer);
-
-    updateQuestion();
-  });
-</script>
+  </script>
 </body>
 </html>
