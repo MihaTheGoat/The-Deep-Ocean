@@ -1,5 +1,215 @@
-<script>
-  // Base64 encoded question-answer pairs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Deep Sea Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@400;700&family=Orbitron:wght@500&family=Russo+One&family=Tektur:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-blue: #001a33;
+      --ocean-teal: #00c8c8;
+      --bioluminescent: #00ffea;
+      --bubble-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background-color: var(--deep-blue);
+      color: var(--ocean-teal);
+      text-align: center;
+      font-family: 'Kanit', sans-serif;
+      background-image: radial-gradient(circle at center, rgba(0, 10, 30, 0.9) 0%, rgba(0, 40, 80, 0.7) 100%), url('https://source.unsplash.com/1920x1080/?deepsea,marine,abyss');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      width: 15px;
+      height: 15px;
+      background: var(--bubble-color);
+      border-radius: 50%;
+      animation: rise 10s linear infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .header {
+      margin-bottom: 40px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      color: #003366;
+      text-shadow: 0 0 15px var(--bioluminescent);
+      letter-spacing: 3px;
+    }
+
+    .question-number {
+      font-family: 'Tektur', sans-serif;
+      font-size: 1.5rem;
+      color: var(--bioluminescent);
+      margin-bottom: 5px;
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 500px;
+      height: 10px;
+      background: rgba(0, 191, 255, 0.2);
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ocean-teal), var(--bioluminescent));
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px;
+    }
+
+    .container {
+      background: rgba(0, 20, 40, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .question {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      min-height: 100px;
+    }
+
+    .answer-box {
+      padding: 18px 30px;
+      font-size: 1.3rem;
+      background: rgba(0, 40, 80, 0.8);
+      color: white;
+      border: 2px solid var(--ocean-teal);
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    .answer-box:focus {
+      outline: none;
+      border-color: var(--bioluminescent);
+      background: rgba(0, 60, 120, 0.9);
+    }
+
+    button {
+      background: linear-gradient(to right, var(--ocean-teal), var(--bioluminescent));
+      color: var(--deep-blue);
+      padding: 18px 45px;
+      border: none;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 1.3rem;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .response {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .response.show {
+      opacity: 1;
+    }
+
+    .correct {
+      color: #00ff88;
+    }
+
+    .incorrect {
+      color: #ff5555;
+    }
+
+    .code-display {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-top: 40px;
+      color: var(--bioluminescent);
+      padding: 20px;
+      border: 1px solid var(--ocean-teal);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
+
+      .question {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" id="bubbles"></div>
+
+  <div class="header">
+    <div class="title">THE DEEP SEA</div>
+    <div class="question-number" id="questionNum">QUESTION 1 OF 5</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="question" id="currentQuestion"></div>
+    <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
+    <button onclick="checkAnswer()">SUBMIT</button>
+    <div class="response" id="response"></div>
+    <div class="code-display" id="codeDisplay">YOUR CODE: XK7B9M2R</div>
+  </div>
+
+  <script>
   const encodedData = [
     { q: "MSBJTlsgNTAgTUlMTElPTiwgRlJPTSBSRUQgVE8gVEhFIENPTE9SIG9mIFRIRSBTRUE=", a: "Ymx1ZSBsb2JzdGVy" },
     { q: "Qk9STiBGUk9NIFNUT05FLCBZRVRBTElWRSBJIEdST1c7IE15IEFSTVMgRU1CUkFDRSBCVVQgTkVWRVIgTEVUIEdP", a: "Y29yYWw=" },
@@ -8,7 +218,6 @@
     { q: "SSdNIEEgR0lBTlQgVEhBVCBET0VTIE5PVEdST1csIEEgVFJBVkVMRVIgV0lUSE9VVCBOTyBGRUVULiBJIENBTiBETVJPV04gU0hJUFMgQlVUIE5FVkVSIERSSU5L", a: "YSB3YXZl" }
   ];
 
-  // Simple Base64 decoder
   function decodeBase64(str) {
     try {
       return decodeURIComponent(escape(atob(str)));
@@ -17,7 +226,6 @@
     }
   }
 
-  // Decode all questions and answers
   const allQuestions = encodedData.map(pair => ({
     question: decodeBase64(pair.q),
     answer: decodeBase64(pair.a)
@@ -49,7 +257,13 @@
     const userAnswer = document.getElementById("answerInput").value.toLowerCase().trim();
     const responseEl = document.getElementById("response");
     const currentQ = selectedQuestions[currentQuestionIndex];
-    const correct = userAnswer === currentQ.answer.toLowerCase();
+    let correct = false;
+
+    if (Array.isArray(currentQ.answer)) {
+      correct = currentQ.answer.map(a => a.toLowerCase()).includes(userAnswer);
+    } else {
+      correct = userAnswer === currentQ.answer.toLowerCase();
+    }
 
     if (correct) {
       responseEl.textContent = "✓ CORRECT!";
@@ -62,9 +276,10 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     updateQuestion();
-    document.getElementById("answerInput").addEventListener("keypress", function(e) {
+
+    document.getElementById("answerInput").addEventListener("keypress", function (e) {
       if (e.key === "Enter") checkAnswer();
     });
 
@@ -81,3 +296,5 @@
     }, 300);
   });
 </script>
+</body>
+</html>
