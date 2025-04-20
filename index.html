@@ -97,22 +97,21 @@
     }
 
     .container {
-  background: rgba(0, 20, 40, 0.9);
-  padding: 40px 50px;
-  border-radius: 20px;
-  width: 85%;
-  max-width: 700px;
-  margin: 0 auto;
-  box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+      background: rgba(0, 20, 40, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;  /* Ensures text is centered horizontally */
     }
-
 
     .question {
       font-family: 'Orbitron', sans-serif;
@@ -218,47 +217,47 @@
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     const encodedData = [
-  {
-    q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u",
-    a: "Ymx1ZSBsb2JzdGVy"
-  },
-  {
-    q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==",
-    a: "Y29yYWw="
-  },
-  {
-    q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==",
-    a: "d2hhbGUgc2hhcms="
-  },
-  {
-    q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==",
-    a: "dGhlIGJsb29w"
-  },
-  {
-    q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu",
-    a: "YSB3YXZl"
-  },
-  {
-    q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu",
-    a: "Y2hpbGxlZCBnZ2ltcHQgYm9s"
-  },
-  {
-    q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl",
-    a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM="
-  },
-  {
-    q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu",
-    a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy"
-  },
-  {
-    q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu",
-    a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl"
-  },
-  {
-    q: "SSBtYW5pbWluZyBzZW4gbG9vc3lhcHBod2lsZSBjdWxpbmUsIHdoZW4gaW5mbHVlbmNlIHdpdGggZ2FzdHBvb3lsLCBsdXh1cnkgbWlzc3RlcnkgaXMgY29uY2VybmVkIHdpdGggdGFyaXRpYWwgZXZpZGVuY2UgbmF0dXJlLCBkdXJpbmcgbG9uZyBkZXNpZ25lZCBwYXRoZW5zLi",
-    a: "ZGVzZXJ2YW52cmFuY2V9aXdpdCBzdG9yaWVzIFNvciBzb2Z0ZG9uU29sdmVtcmFxdWVsdHN2bg=="
-  }
-];
+      {
+        q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u",
+        a: "Ymx1ZSBsb2JzdGVy"
+      },
+      {
+        q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==",
+        a: "Y29yYWw="
+      },
+      {
+        q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==",
+        a: "d2hhbGUgc2hhcms="
+      },
+      {
+        q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==",
+        a: "dGhlIGJsb29w"
+      },
+      {
+        q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu",
+        a: "YSB3YXZl"
+      },
+      {
+        q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu",
+        a: "Y2hpbGxlZCBnZ2ltcHQgYm9s"
+      },
+      {
+        q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl",
+        a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM="
+      },
+      {
+        q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu",
+        a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy"
+      },
+      {
+        q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu",
+        a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl"
+      },
+      {
+        q: "SSBtYW5pbWluZyBzZW4gbG9vc3lhcHBod2lsZSBjdWxpbmUsIHdoZW4gaW5mbHVlbmNlIHdpdGggZ2FzdHBvb3lsLCBsdXh1cnkgbWlzc3RlcnkgaXMgY29uY2VybmVkIHdpdGggdGFyaXRpYWwgZXZpZGVuY2UgbmF0dXJlLCBkdXJpbmcgbG9uZyBkZXNpZ25lZCBwYXRoZW5zLi",
+        a: "ZGVzZXJhdmFudHJhbmNld29ycnl3YW5zc2VsIHNvcnRoZGVkY29nbmRvY28="
+      }
+    ];
 
 
     const decode = str => atob(str);
@@ -302,41 +301,20 @@
       const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
 
       if (isCorrect) {
-        response.textContent = "✓ CORRECT!";
-        response.className = "response correct show";
-        currentQuestionIndex++;
-        setTimeout(updateQuestion, 1000);
+        response.textContent = "CORRECT!";
+        response.className = "response correct";
       } else {
-        response.textContent = "✗ INCORRECT - TRY AGAIN";
-        response.className = "response incorrect show";
+        response.textContent = "INCORRECT!";
+        response.className = "response incorrect";
       }
+
+      response.style.opacity = 1;
+      currentQuestionIndex++;
+      setTimeout(updateQuestion, 1000);
     }
 
-    document.getElementById("answerInput").addEventListener("keypress", e => {
-      if (e.key === "Enter") checkAnswer();
-    });
-
-    document.querySelector("button").addEventListener("click", checkAnswer);
-
     updateQuestion();
-
-    const encodedCode = document.getElementById("codeDisplay").textContent;
-      const decodedCode = atob(encodedCode);
-
-      document.getElementById("codeDisplay").textContent = "YOUR CODE: " + decodedCode;
-
-    // Bubble animation
-      const bubblesContainer = document.getElementById("bubbles");
-      setInterval(() => {
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.style.left = `${Math.random() * 100}%`;
-        bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
-        bubble.style.width = bubble.style.height = `${10 + Math.random() * 10}px`;
-        bubblesContainer.appendChild(bubble);
-        setTimeout(() => bubble.remove(), 10000);
-      }, 300);
   });
-</script>
+  </script>
 </body>
 </html>
