@@ -259,6 +259,7 @@
       }
     ];
 
+
     const decode = str => atob(str);
 
     const allQuestions = encodedData.map(item => ({
@@ -268,25 +269,6 @@
 
     const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
     let currentQuestionIndex = 0;
-
-    window.checkAnswer = function () {
-      const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
-      const response = document.getElementById("response");
-      const currentQ = selectedQuestions[currentQuestionIndex];
-      const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
-
-      if (isCorrect) {
-        response.textContent = "CORRECT!";
-        response.className = "response correct";
-      } else {
-        response.textContent = "INCORRECT!";
-        response.className = "response incorrect";
-      }
-
-      response.style.opacity = 1;
-      currentQuestionIndex++;
-      setTimeout(updateQuestion, 1000);
-    };
 
     function updateQuestion() {
       const questionEl = document.getElementById("currentQuestion");
@@ -312,8 +294,27 @@
       }
     }
 
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
+      const response = document.getElementById("response");
+      const currentQ = selectedQuestions[currentQuestionIndex];
+      const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
+
+      if (isCorrect) {
+        response.textContent = "CORRECT!";
+        response.className = "response correct";
+      } else {
+        response.textContent = "INCORRECT!";
+        response.className = "response incorrect";
+      }
+
+      response.style.opacity = 1;
+      currentQuestionIndex++;
+      setTimeout(updateQuestion, 1000);
+    }
+
     updateQuestion();
   });
-</script>
+  </script>
 </body>
 </html>
