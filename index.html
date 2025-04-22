@@ -215,106 +215,85 @@
   </div>
 
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const encodedData = [
-      {
-        q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u",
-        a: "Ymx1ZSBsb2JzdGVy"
-      },
-      {
-        q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==",
-        a: "Y29yYWw="
-      },
-      {
-        q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==",
-        a: "d2hhbGUgc2hhcms="
-      },
-      {
-        q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==",
-        a: "dGhlIGJsb29w"
-      },
-      {
-        q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu",
-        a: "YSB3YXZl"
-      },
-      {
-        q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu",
-        a: "Y2hpbGxlZCBnZ2ltcHQgYm9s"
-      },
-      {
-        q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl",
-        a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM="
-      },
-      {
-        q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu",
-        a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy"
-      },
-      {
-        q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu",
-        a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl"
-      },
-      {
-        q: "SSBtYW5pbWluZyBzZW4gbG9vc3lhcHBod2lsZSBjdWxpbmUsIHdoZW4gaW5mbHVlbmNlIHdpdGggZ2FzdHBvb3lsLCBsdXh1cnkgbWlzc3RlcnkgaXMgY29uY2VybmVkIHdpdGggdGFyaXRpYWwgZXZpZGVuY2UgbmF0dXJlLCBkdXJpbmcgbG9uZyBkZXNpZ25lZCBwYXRoZW5zLi",
-        a: "ZGVzZXJhdmFudHJhbmNld29ycnl3YW5zc2VsIHNvcnRoZGVkY29nbmRvY28="
-      }
-    ];
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const encodedData = [
+    { q: "RnJvbSByZWQgdG8gYmx1ZSwgSSdtIG9uZSBpbiBtaWxsaW9ucywgc2VhLWJvcm4u", a: "Ymx1ZSBsb2JzdGVy" },
+    { q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==", a: "Y29yYWw=" },
+    { q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==", a: "d2hhbGUgc2hhcms=" },
+    { q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==", a: "dGhlIGJsb29w" },
+    { q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu", a: "YSB3YXZl" },
+    { q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu", a: "Y2hpbGxlZCBnZ2ltcHQgYm9s" },
+    { q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl", a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM=" },
+    { q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu", a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy" },
+    { q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu", a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl" },
+    { q: "SSBtYW5pbWluZyBzZW4gbG9vc3lhcHBod2lsZSBjdWxpbmUsIHdoZW4gaW5mbHVlbmNlIHdpdGggZ2FzdHBvb3lsLCBsdXh1cnkgbWlzc3RlcnkgaXMgY29uY2VybmVkIHdpdGggdGFyaXRpYWwgZXZpZGVuY2UgbmF0dXJlLCBkdXJpbmcgbG9uZyBkZXNpZ25lZCBwYXRoZW5zLg==", a: "ZGVzZXJhdmFudHJhbmNld29ycnl3YW5zc2VsIHNvcnRoZGVkY29nbmRvY28=" }
+  ];
 
+  const decode = str => atob(str);
+  const allQuestions = encodedData.map(item => ({
+    question: decode(item.q),
+    answer: decode(item.a).split("||")
+  }));
 
-    const decode = str => atob(str);
+  const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+  let currentQuestionIndex = 0;
 
-    const allQuestions = encodedData.map(item => ({
-      question: decode(item.q),
-      answer: decode(item.a).split("||")
-    }));
+  const questionEl = document.getElementById("currentQuestion");
+  const questionNum = document.getElementById("questionNum");
+  const progress = document.getElementById("progressBar");
+  const response = document.getElementById("response");
+  const answerInput = document.getElementById("answerInput");
+  const codeDisplay = document.getElementById("codeDisplay");
+  const submitBtn = document.getElementById("submitBtn");
 
-    const selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-    let currentQuestionIndex = 0;
+  function updateQuestion() {
+    if (currentQuestionIndex < selectedQuestions.length) {
+      const current = selectedQuestions[currentQuestionIndex];
+      questionEl.textContent = current.question;
+      questionNum.textContent = `QUESTION ${currentQuestionIndex + 1} OF ${selectedQuestions.length}`;
+      answerInput.value = "";
+      response.textContent = "";
+      response.className = "response";
+      progress.style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
+    } else {
+      questionEl.textContent = "QUESTIONS COMPLETED!";
+      questionNum.textContent = "COMPLETED";
+      answerInput.style.display = "none";
+      submitBtn.style.display = "none";
+      progress.style.width = "100%";
+      codeDisplay.style.display = "block";
+    }
+  }
 
-    function updateQuestion() {
-      const questionEl = document.getElementById("currentQuestion");
-      const questionNum = document.getElementById("questionNum");
-      const progress = document.getElementById("progressBar");
-      const response = document.getElementById("response");
+  function checkAnswer() {
+    const userAnswer = answerInput.value.trim().toLowerCase();
+    const currentQ = selectedQuestions[currentQuestionIndex];
+    const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
 
-      if (currentQuestionIndex < selectedQuestions.length) {
-        const current = selectedQuestions[currentQuestionIndex];
-        questionEl.textContent = current.question;
-        questionNum.textContent = `QUESTION ${currentQuestionIndex + 1} OF ${selectedQuestions.length}`;
-        document.getElementById("answerInput").value = "";
-        response.textContent = "";
-        response.className = "response";
-        progress.style.width = `${(currentQuestionIndex / selectedQuestions.length) * 100}%`;
-      } else {
-        questionEl.textContent = "QUESTIONS COMPLETED!";
-        questionNum.textContent = "COMPLETED";
-        document.getElementById("answerInput").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        progress.style.width = "100%";
-        document.getElementById("codeDisplay").style.display = "block";
-      }
+    if (isCorrect) {
+      response.textContent = "CORRECT!";
+      response.className = "response correct show";
+    } else {
+      response.textContent = "INCORRECT!";
+      response.className = "response incorrect show";
     }
 
-    function checkAnswer() {
-      const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
-      const response = document.getElementById("response");
-      const currentQ = selectedQuestions[currentQuestionIndex];
-      const isCorrect = currentQ.answer.some(a => userAnswer === a.toLowerCase());
+    currentQuestionIndex++;
+    setTimeout(updateQuestion, 1000);
+  }
 
-      if (isCorrect) {
-        response.textContent = "CORRECT!";
-        response.className = "response correct";
-      } else {
-        response.textContent = "INCORRECT!";
-        response.className = "response incorrect";
-      }
+  submitBtn.addEventListener("click", checkAnswer);
 
-      response.style.opacity = 1;
-      currentQuestionIndex++;
-      setTimeout(updateQuestion, 1000);
+  answerInput.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+      checkAnswer();
     }
-
-    updateQuestion();
   });
-  </script>
+
+  updateQuestion();
+});
+</script>
+
 </body>
 </html>
