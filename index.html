@@ -206,7 +206,7 @@
     <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
     <button id="submitBtn">SUBMIT</button>
     <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay">WV91ciBDT0RFOiBYSzdCOVAyUg==</div>
+    <div class="code-display" id="codeDisplay">Your code is: TheNightlyDeepOcean10285</div>
   </div>
 
   <script>
@@ -216,11 +216,7 @@
         { q: "SSBncm93IGJ1dCBuZXZlciBtb3ZlLiBJIGxpdmUsIGJ1dCBJIGFtIHN0b25lLg==", a: "Y29yYWw=" },
         { q: "QmlnIGFzIGEgYnVzLCBzcG90cyBvbiBteSBiYWNrLCBJIGdsaWRlIGFuZCBndWxwLg==", a: "d2hhbGUgc2hhcms=" },
         { q: "SSB3YXMgb25jZSBhIHNvdW5kIHNvIGRlZXAsIG5vIG9uZSBrbm93cyBtZSB3ZWxsLg==", a: "dGhlIGJsb29w" },
-        { q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu", a: "YSB3YXZl" },
-        { q: "SWdyaXNzZWQgYXMgd2hpdGUgaXMgYSBkaXNoLCBpbiBpdGFsaXphdGlvbiBxdWVzdGlvbnMu", a: "Y2hpbGxlZCBnZ2ltcHQgYm9s" },
-        { q: "TXkgYm9hbmQsIHlldCBjYW4gc3RhcnQgc3RhcnMgYnkgaW5zdW5nIHRoZSB1bmNlcnRhaW4gbmF0dXJl", a: "Y3VudGFyb2FndW5hdGlzdGltZSBxdWVzdGlvbnM=" },
-        { q: "VGlnaHRsZWQgYSBsaWZlIGZpc2ggYXBhcnRlcyBtYWluZCwgdGhpcyBmb3JtIHN0b3J5aW5nIHRoaW5ncyBkdXJpbmcgaGlnaCBwb2ludCBhcHBsaWNhdGlvbnMu", a: "b2N0b3B1cyBkYWlseXxlcmNoaW5lZCBib2xvZ3kgYW5kZWFy" },
-        { q: "TWFuY2UgYWxsIGV4cGVyaWVuY2UgdG8gYSBsaWZlIGJvbGQgYWluIGNpdCwgYnV0IGFjdHVhbGx5IGFsaW5lLCBzY2FyY2hpZyBvcHBvc2l0ZXMu", a: "bGVvYnRhY3VsdCBpZmx1ZW5jZXNfbGVnZW5kZXMgbm90ZWRwb3Nl" }
+        { q: "SSByaXNlIGhpZ2ggd2l0aCBubyBsZWdzLCBjcmFzaCBsb3VkLCB0aGVuIGZhZGUu", a: "YSB3YXZl" }
       ];
 
       const decode = str => atob(str);
@@ -267,13 +263,12 @@
         if (isCorrect) {
           response.textContent = "CORRECT!";
           response.className = "response correct show";
+          currentQuestionIndex++;
+          setTimeout(updateQuestion, 1000);
         } else {
           response.textContent = "INCORRECT!";
           response.className = "response incorrect show";
         }
-
-        currentQuestionIndex++;
-        setTimeout(updateQuestion, 1000);
       }
 
       submitBtn.addEventListener("click", checkAnswer);
