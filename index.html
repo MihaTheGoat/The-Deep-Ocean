@@ -40,11 +40,9 @@
     .bubble {
       position: absolute;
       bottom: -50px;
-      width: 15px;
-      height: 15px;
       background: var(--bubble-color);
       border-radius: 50%;
-      animation: rise 10s linear infinite;
+      animation: rise linear infinite;
     }
 
     @keyframes rise {
@@ -206,7 +204,7 @@
     <input type="text" class="answer-box" id="answerInput" placeholder="ENTER YOUR ANSWER..." autocomplete="off">
     <button id="submitBtn">SUBMIT</button>
     <div class="response" id="response"></div>
-    <div class="code-display" id="codeDisplay">Your code is: TheNightlyDeepOcean10285</div>
+    <div class="code-display" id="codeDisplay">WV91ciBDT0RFOiBYSzdCOVAyUg==</div>
   </div>
 
   <script>
@@ -279,6 +277,25 @@
       });
 
       updateQuestion();
+
+      // Bubble generator
+      function createBubble() {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+
+        const size = Math.random() * 10 + 10;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${6 + Math.random() * 6}s`;
+        bubble.style.opacity = Math.random() * 0.6 + 0.2;
+
+        document.getElementById("bubbles").appendChild(bubble);
+        setTimeout(() => bubble.remove(), 13000);
+      }
+
+      setInterval(createBubble, 300);
     });
   </script>
 </body>
